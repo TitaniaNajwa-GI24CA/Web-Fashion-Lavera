@@ -14,9 +14,9 @@ class buku_model extends CI_Model {
     }
 
     // MENCARI DATA//
-    public function get_by_id($kode_buku)
+    public function get_by_id($buku_id)
     {
-        $this->db->where('kode_buku', $kode_buku);
+        $this->db->where('buku_id', $buku_id);
         return $this->db->get('buku')->row();
     }
     //INSERT DATA//
@@ -25,14 +25,14 @@ class buku_model extends CI_Model {
         return $this->db->insert($this->table,$data);
     }
     //HAPUS DATA//
-    public function delete($kode_buku)
+    public function delete($buku_id)
     {
-        return $this->db->delete($this->table,['kode_buku'=>$kode_buku]);
+        return $this->db->delete($this->table,['buku_id'=>$buku_id]);
     }
     //UPDATE DATA//
-   public function update($kode_buku, $data)
+   public function update($buku_id, $data)
     {
-        $this->db->where('kode_buku', $kode_buku);
+        $this->db->where('buku_id', $buku_id);
         $this->db->update($this->table, $data);
     }
 
