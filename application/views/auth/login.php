@@ -1,106 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Perpustakaan - Login</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css');?>" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="<?= base_url('assets/css/sb-admin-2.min.css');?>" rel="stylesheet">
+    <title>Login | Lavéra</title>
+    <link rel="stylesheet" href="<?= base_url('assets/css/auth.css'); ?>">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
+<body>
+    <?php if($this->session->flashdata('success')): ?>
+        <div class="lavera-alert-modal" id="laveraAlertModal">
+            <div class="success-box">
+                <div class="success-icon">
+                    <i class="fa-solid fa-check"></i>
+                </div>
 
-<body class="bg-gradient-primary">
+                <h3>Berhasil!</h3>
+                <p><?= $this->session->flashdata('success'); ?></p>
+            </div>
+        </div>
+    <?php endif; ?>
+<section class="login-page">
+    <div class="login-left">
+        <img src="<?= base_url('assets/img/login-img-customer.png'); ?>" alt="Login Lavéra">
+    </div>
 
-    <div class="container">
+    <div class="login-right">
 
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
+        <div class="login-form-box">
 
-            <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="login-logo">
+                <img src="<?= base_url('assets/img/logo-lavera.png'); ?>" alt="Logo Lavéra">
+            </div>
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center">
-                                <div class="text-center">
-                                    <img src="<?= base_url('assets/img/perpus.png');?>" 
-                                        width="500"
-                                        class="mb-6">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4"><b>Welcome Back!</b></h1>
-                                    </div>
-                                    <?php if($this->session->flashdata('error')):?>
-                                        <div class="alert alert-danger">
-                                            <?= $this->session->flashdata('error'); ?>
-                                        </div>
-                                    <?php endif;?>
-                                    <form class="user" method="post" action="<?= site_url('login/proses');?>">
-                                        <div class="form-group">
-                                            <input type="text" name="username" class="form-control form-control-user"
-                                                placeholder="Username" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </button>
-                                    </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="#">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="#">Create an Account!</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <h1>Welcome Back</h1>
+            <p class="login-subtitle">
+                Masuk untuk melanjutkan pengalaman belanja eleganmu bersama Lavéra.
+            </p>
+
+            <?php if($this->session->flashdata('error')): ?>
+                <div class="alert-error">
+                    <?= $this->session->flashdata('error'); ?>
+                </div>
+            <?php endif; ?>
+
+            <form action="<?= base_url('proses-login'); ?>" method="post">
+
+                <div class="input-group">
+                    <label>Username / Email</label>
+                    <div class="input-box">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" name="login" placeholder="Masukkan username atau email" required>
                     </div>
                 </div>
 
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" name="password" placeholder="Masukkan password" required>
+                    </div>
+                </div>
+
+                <div class="forgot-password">
+                    <a href="#" id="openForgotModal">
+                        Lupa Password?
+                    </a>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Login Sekarang
+                </button>
+
+            </form>
+
+            <div class="auth-link">
+                Belum punya akun?
+                <a href="<?= base_url('register'); ?>">Daftar sekarang</a>
             </div>
 
         </div>
 
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="<?= base_url('assets/vendor/jquery/jquery.min.js');?>"></script>
-    <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
+        <div class="forgot-modal" id="forgotModal">
+            <div class="forgot-box">
 
-    <!-- Core plugin JavaScript-->
-    <script src="<?= base_url('assets/vendor/jquery-easing/jquery.easing.min.js');?>"></script>
+                <button type="button" class="close-forgot" id="closeForgotModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
 
-    <!-- Custom scripts for all pages-->
-    <script src="<?= base_url('assets/js/sb-admin-2.min.js');?>"></script>
+                <div class="forgot-icon">
+                    <i class="fa-solid fa-key"></i>
+                </div>
 
+                <h2>Lupa Password?</h2>
+                <p>Masukkan email akun Lavéra kamu untuk proses reset password.</p>
+
+                <form action="<?= base_url('forgot-password'); ?>" method="post">
+                    <div class="input-group">
+                        <label>Email</label>
+                        <div class="input-box">
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input type="email"
+                                name="email"
+                                placeholder="Masukkan email akun"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Password Baru</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password"
+                                name="password_baru"
+                                placeholder="Masukkan password baru"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Konfirmasi Password</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password"
+                                name="konfirmasi_password"
+                                placeholder="Ulangi password baru"
+                                required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-btn">
+                        Update Password
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+</section>
+<script src="<?= base_url('assets/js/pop-up.js'); ?>"></script>
 </body>
-
 </html>

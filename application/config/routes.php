@@ -16,10 +16,13 @@ $route['translate_uri_dashes'] = FALSE;
 | AUTH
 |--------------------------------------------------------------------------
 */
-
-$route['login']          = 'auth';
-$route['login/proses']  = 'auth/login';
-$route['logout']        = 'auth/logout';
+$route['login'] = 'auth/login';
+$route['register'] = 'auth/register';
+$route['proses-login'] = 'auth/proses_login';
+$route['proses-register'] = 'auth/proses_register';
+$route['update-profile'] = 'auth/update_profile';
+$route['forgot-password'] = 'auth/forgot_password';
+$route['logout'] = 'auth/logout';
 
 /*
 |--------------------------------------------------------------------------

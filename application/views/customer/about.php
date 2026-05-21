@@ -18,7 +18,7 @@
         <div class="owner-grid">
 
             <div class="owner-card">
-                <img src="<?= base_url('assets/img/owner-riska.png'); ?>" alt="Riska Yulia Rahma">
+                <img src="<?= base_url('assets/img/owner-riska.jpg'); ?>" alt="Riska Yulia Rahma">
                 <h3>Riska Yulia Rahma</h3>
                 <ul>
                     <li>Founder Lavéra</li>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="owner-card">
-                <img src="<?= base_url('assets/img/owner-fitriana.png'); ?>" alt="Fitriana Hendayati">
+                <img src="<?= base_url('assets/img/owner-fitriana.jpg'); ?>" alt="Fitriana Hendayati">
                 <h3>Fitriana Hendayati</h3>
                 <ul>
                     <li>Founder Lavéra</li>
@@ -50,12 +50,10 @@
         </div>
     </div>
 
-    <section class="transaction-guide" id="transaction-guide">
-
-        <div class="section-title">
+    <section class="transaction-guide" id="howtoorder" data-aos="fade-up">
+         <div class="section-title">
             <p>How To Order</p>
             <h2>Panduan Transaksi</h2>
-        </div>
 
         <h3 class="guide-subtitle">Ready To Wear</h3>
 

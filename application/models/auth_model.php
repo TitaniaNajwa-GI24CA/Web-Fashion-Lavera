@@ -1,22 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class auth_model extends CI_Model{
+class auth_model extends CI_Model {
 
-    public function cek_login($username, $password)
+    public function insert_user($data)
     {
-        return $this->db->get_where('users',[
-            'username'=>$username,
-            'password'=>md5($password)
-        ])->row();
+        $this->db->insert('tbl_users', $data);
+        return $this->db->insert_id();
     }
 
-    public function update_last_login($id)
+    public function insert_customer($data)
     {
-        $this->db->where('id', $id);
-        $this->db->update('users',[
-            'last_login'=>date('Y-m-d H:i:s')
+        return $this->db->insert('tbl_customer', $data);
+    }
+
+    public function get_user_by_login($login)
+    {
+        $this->db->where('username', $login);
+        $this->db->or_where('email', $login);
+        return $this->db->get('tbl_users')->row();
+    }
+
+    public function update_last_login($id_user)
+    {
+        $this->db->where('id_user', $id_user);
+        return $this->db->update('tbl_users', [
+            'last_login' => date('Y-m-d H:i:s')
         ]);
     }
-
 }

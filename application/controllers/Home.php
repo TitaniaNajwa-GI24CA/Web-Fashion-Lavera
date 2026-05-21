@@ -3,10 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
-    public function index()
+   public function index()
     {
-        $this->load->view('customer/home');
+    $data['customer'] = null;
+    if($this->session->userdata('login') == TRUE && $this->session->userdata('role') == 'customer') {
+        $id_user = $this->session->userdata('id_user');
+        $this->db->select('tbl_users.*, tbl_customer.id_customer, tbl_customer.alamat, tbl_customer.foto_profil');
+        $this->db->from('tbl_users');
+        $this->db->join('tbl_customer', 'tbl_customer.id_user = tbl_users.id_user');
+        $this->db->where('tbl_users.id_user', $id_user);
+        $data['customer'] = $this->db->get()->row();
     }
+
+    $this->load->view('customer/home', $data);
+}
 
     public function collection()
     {
