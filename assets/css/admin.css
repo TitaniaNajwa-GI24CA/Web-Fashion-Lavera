@@ -46,7 +46,7 @@ body{
     object-position: center bottom;
     display: block;
     opacity: .97;
-    margin-bottom: -10px;
+    margin-bottom: 0px;
     filter:
         drop-shadow(0 16px 26px rgba(255, 150, 180, .24));
 }
@@ -77,7 +77,8 @@ body{
     gap: 10px;
 }
 
-.sidebar-menu a{
+.sidebar-menu a,
+.submenu a{
     text-decoration: none;
     color: #654b4b;
     padding: 15px 18px;
@@ -90,7 +91,9 @@ body{
 }
 
 .sidebar-menu a:hover,
-.sidebar-menu a.active{
+.sidebar-menu a.active,
+.submenu a:hover,
+.submenu a.active{
     background: linear-gradient(135deg, #ffe5ef, #fff0f4);
     color: #d46d90;
     transform: translateX(4px);
@@ -913,7 +916,7 @@ body{
 }
 
 .produk-modal-box{
-    width: 800px;
+    width: 700px;
     max-width: 92vw;
     max-height: 88vh;
     overflow-y: auto;
@@ -1102,4 +1105,16 @@ body{
 
 .produk-submit-btn:hover{
     transform: translateY(-3px);
+}
+
+.submenu {
+    display: none;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.submenu.show {
+    display: flex;
 }

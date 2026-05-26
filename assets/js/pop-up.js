@@ -158,3 +158,13 @@ window.addEventListener('click', function(e){
     }
 
 });
+
+document.querySelectorAll('.has-submenu').forEach(menu => {
+    menu.addEventListener('click', function () {
+
+        const submenu = this.nextElementSibling;
+
+        submenu.classList.toggle('show');
+
+    });
+});

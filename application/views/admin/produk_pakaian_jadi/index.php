@@ -110,7 +110,6 @@
             <h2>Tambah Produk</h2>
             <p>Tambahkan koleksi pakaian jadi terbaru Lavéra.</p>
         </div>
-    </div>
 
         <form action="<?= base_url('admin/simpan-produk-pakaian-jadi'); ?>" 
               method="post"
@@ -191,9 +190,8 @@
                 <i class="fa-solid fa-floppy-disk"></i>
                 Simpan Produk
             </button>
-
         </form>
-
+    </div>
     </div>
 
 </div>
