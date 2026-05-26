@@ -122,64 +122,51 @@
 <?php $this->load->view('customer/collection'); ?>
 <?php $this->load->view('customer/custom'); ?>
 <?php $this->load->view('customer/contact'); ?>
+
 <?php if($this->session->userdata('login') == TRUE && $this->session->userdata('role') == 'customer'): ?>
     <div class="profile-modal" id="profileModal">
         <div class="profile-modal-box">
             <button class="close-profile-modal" id="closeProfileModal">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <h2>Edit Profile</h2>
+            <h2>Detail Profile</h2>
             <p>Perbarui data akun dan informasi profile kamu.</p>
             <form action="<?= base_url('update-profile'); ?>" method="post" enctype="multipart/form-data">
-
                 <?php
                     $foto = !empty($customer->foto_profil)
                         ? 'assets/img/profile/' . $customer->foto_profil
                         : 'assets/img/profile-basic.jpg';
                 ?>
-
                 <div class="profile-edit-layout">
-
                     <div class="profile-left">
                         <div class="profile-photo-preview">
                             <img src="<?= base_url($foto); ?>" alt="Profile">
                         </div>
-
                         <label class="upload-label">Foto Profile</label>
                         <input type="file" name="foto_profil" accept="image/*">
                     </div>
-
                     <div class="profile-right">
-
                         <div class="profile-form-grid">
-
                             <div class="input-group">
                                 <label>Nama Lengkap</label>
                                 <input type="text" name="nama_user" value="<?= $customer->nama_user; ?>">
                             </div>
-
                             <div class="input-group">
                                 <label>No. Telepon</label>
                                 <input type="text" name="no_telepon" value="<?= $customer->no_telepon; ?>">
                             </div>
-
                             <div class="input-group profile-full">
                                 <label>Alamat</label>
                                 <textarea name="alamat"><?= $customer->alamat; ?></textarea>
                             </div>
-
                             <div class="profile-full">
                                 <button type="submit" class="profile-save-btn">
                                     Simpan Perubahan
                                 </button>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </form>
         </div>
     </div>

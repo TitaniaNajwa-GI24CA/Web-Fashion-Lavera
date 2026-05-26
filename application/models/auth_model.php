@@ -28,4 +28,32 @@ class auth_model extends CI_Model {
             'last_login' => date('Y-m-d H:i:s')
         ]);
     }
+
+    public function cek_username($username)
+    {
+        return $this->db
+            ->where('username', $username)
+            ->get('tbl_users')
+            ->row();
+    }
+
+    public function insert_staff($data_user)
+    {
+        $this->db->insert('tbl_users', $data_user);
+        $id_user = $this->db->insert_id();
+
+        if($data_user['role'] == 'admin'){
+
+            $this->db->insert('tbl_admin', [
+                'id_user' => $id_user
+            ]);
+
+        } elseif($data_user['role'] == 'kasir'){
+
+            $this->db->insert('tbl_kasir', [
+                'id_user' => $id_user
+            ]);
+        }
+        return $id_user;
+    }
 }

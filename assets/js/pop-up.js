@@ -110,3 +110,51 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 });
+
+setTimeout(function(){
+    const modal = document.getElementById('laveraAlertModal');
+    if(modal){
+        modal.remove();
+    }
+}, 2200);
+
+const openProdukModal =
+    document.getElementById('openProdukModal');
+
+const closeProdukModal =
+    document.getElementById('closeProdukModal');
+
+const produkModal =
+    document.getElementById('produkModal');
+
+if(openProdukModal){
+
+    openProdukModal.addEventListener('click', function(e){
+
+        e.preventDefault();
+
+        produkModal.classList.add('active');
+
+    });
+
+}
+
+if(closeProdukModal){
+
+    closeProdukModal.addEventListener('click', function(){
+
+        produkModal.classList.remove('active');
+
+    });
+
+}
+
+window.addEventListener('click', function(e){
+
+    if(e.target == produkModal){
+
+        produkModal.classList.remove('active');
+
+    }
+
+});

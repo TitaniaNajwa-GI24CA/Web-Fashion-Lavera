@@ -32,8 +32,8 @@
         offset: 120
     });
 </script>
-
 <script src="<?= base_url('assets/js/pop-up.js'); ?>"></script>
+
 
 </body>
 </html>

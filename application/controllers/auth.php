@@ -11,7 +11,7 @@ class auth extends CI_Controller {
 
     public function login()
     {
-        $this->load->view('auth/login');
+        $this->load->view('auth/login_customer');
     }
 
     public function register()
@@ -41,7 +41,7 @@ class auth extends CI_Controller {
         $this->auth_model->insert_customer($data_customer);
 
         $this->session->set_flashdata('success', 'Registrasi berhasil, silakan login.');
-        redirect('login');
+        redirect('login_customer');
     }
 
     public function proses_login()
@@ -55,7 +55,7 @@ class auth extends CI_Controller {
 
             if ($user->status_akun != 'aktif') {
                 $this->session->set_flashdata('error', 'Akun kamu tidak aktif.');
-                redirect('login');
+                redirect('login_customer');
             }
             $session_data = [
                 'id_user'   => $user->id_user,
@@ -83,14 +83,14 @@ class auth extends CI_Controller {
             }
         } else {
             $this->session->set_flashdata('error', 'Username/email atau password salah.');
-            redirect('login');
+            redirect('login_customer');
         }
     }
 
     public function update_profile()
     {
         if($this->session->userdata('login') != TRUE) {
-            redirect('login');
+            redirect('login_customer');
         }
 
         $id_user = $this->session->userdata('id_user');
@@ -149,7 +149,7 @@ class auth extends CI_Controller {
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('login');
+        redirect('login_customer');
     }
 
     public function forgot_password()
@@ -173,7 +173,7 @@ class auth extends CI_Controller {
                 'Email tidak ditemukan.'
             );
 
-            redirect('login');
+            redirect('login_customer');
         }
 
         if($password_baru != $konfirmasi){
@@ -183,23 +183,141 @@ class auth extends CI_Controller {
                 'Konfirmasi password tidak sesuai.'
             );
 
-            redirect('login');
+            redirect('login_customer');
         }
 
         $password_hash =
         password_hash($password_baru, PASSWORD_DEFAULT);
 
         $this->db->where('email', $email);
-
         $this->db->update('tbl_users', [
             'password' => $password_hash
         ]);
-
         $this->session->set_flashdata(
             'success',
             'Password berhasil diperbarui.'
         );
 
-        redirect('login');
+        redirect('login_customer');
+    }
+
+    public function staff_login()
+    {
+        $this->load->view('auth/staff-login');
+    }
+
+    public function proses_staff_login()
+    {
+        $username = $this->input->post('login');
+        $password = $this->input->post('password');
+        $user = $this->db
+            ->where('username', $username)
+            ->where_in('role', ['admin','kasir'])
+            ->get('tbl_users')
+            ->row();
+
+        if($user){
+
+            if(password_verify($password, $user->password)){
+
+                if($user->status_akun != 'aktif'){
+
+                    $this->session->set_flashdata(
+                        'error',
+                        'Akun staff tidak aktif.'
+                    );
+
+                    redirect('staff-login');
+                }
+
+                $session_data = [
+
+                    'id_user'   => $user->id_user,
+                    'nama_user' => $user->nama_user,
+                    'username'  => $user->username,
+                    'role'      => $user->role,
+                    'login'     => TRUE
+
+                ];
+
+                $this->session->set_userdata($session_data);
+
+                $this->session->set_flashdata(
+                    'success',
+                    'Selamat datang, '.$user->nama_user.' ✨'
+                );
+
+                if($user->role == 'admin'){
+
+                    redirect('admin/dashboard');
+
+                } else{
+
+                    redirect('kasir/dashboard');
+
+                }
+
+            } else{
+
+                $this->session->set_flashdata(
+                    'error',
+                    'Password salah.'
+                );
+
+                redirect('staff-login');
+            }
+
+        } else{
+            $this->session->set_flashdata(
+                'error',
+                'Username staff tidak ditemukan.'
+            );
+            redirect('staff-login');
+        }
+    }
+
+    public function staff_logout()
+    {
+        $this->session->sess_destroy();
+        redirect('staff-login');
+    }
+
+    public function register_staff()
+    {
+        $this->load->view('auth/staff-register');
+    }
+
+   public function proses_register_staff()
+    {
+        $password = $this->input->post('password');
+        $konfirmasi_password = $this->input->post('konfirmasi_password');
+
+        if($password != $konfirmasi_password){
+            $this->session->set_flashdata('error', 'Konfirmasi password tidak sesuai.');
+            redirect('admin/register-staff');
+        }
+
+        $username = $this->input->post('username');
+        $cek_username = $this->auth_model->cek_username($username);
+
+        if($cek_username){
+            $this->session->set_flashdata('error', 'Username sudah digunakan.');
+            redirect('admin/register-staff');
+        }
+
+        $data = [
+            'nama_user'   => $this->input->post('nama_user'),
+            'username'    => $this->input->post('username'),
+            'email'       => $this->input->post('email'),
+            'password'    => password_hash($password, PASSWORD_DEFAULT),
+            'role'        => $this->input->post('role'),
+            'no_telepon'  => $this->input->post('no_telepon'),
+            'status_akun' => 'aktif'
+        ];
+
+        $this->auth_model->insert_staff($data);
+
+        $this->session->set_flashdata('success', 'Staff berhasil didaftarkan ✨');
+        redirect('admin/register-staff');
     }
 }
