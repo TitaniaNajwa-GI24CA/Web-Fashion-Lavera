@@ -80,7 +80,7 @@
                         <i class="fa-regular fa-user"></i>
                     </div>
                     <div class="profile-dropdown guest-dropdown">
-                        <a href="<?= base_url('login'); ?>" class="guest-link">
+                        <a href="<?= base_url('login_customer'); ?>" class="guest-link">
                             <span>
                                 <i class="fa-solid fa-right-to-bracket"></i>
                             </span>
@@ -119,7 +119,7 @@
 
 </section>
 <?php $this->load->view('customer/about'); ?>
-<?php $this->load->view('customer/collection'); ?>
+<?php $this->load->view('customer/collection', ['produk' => $produk]); ?>
 <?php $this->load->view('customer/custom'); ?>
 <?php $this->load->view('customer/contact'); ?>
 

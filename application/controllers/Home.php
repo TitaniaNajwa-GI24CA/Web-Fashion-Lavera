@@ -14,13 +14,26 @@ class Home extends CI_Controller {
         $this->db->where('tbl_users.id_user', $id_user);
         $data['customer'] = $this->db->get()->row();
     }
-
-    $this->load->view('customer/home', $data);
-}
+        $this->load->model('admin/produk_pakaian_jadi_model');
+        $produk = $this->produk_pakaian_jadi_model->get_produk_group();
+        foreach($produk as $p){
+            $p->ukuran_stok = $this->produk_pakaian_jadi_model
+                ->get_ukuran_stok_by_produk($p->nama_pakaian);
+        }
+        $data['produk'] = $produk;
+        $this->load->view('customer/home', $data);
+    }
 
     public function collection()
     {
-        $this->load->view('customer/collection');
+        $this->load->model('admin/produk_pakaian_jadi_model');
+        $produk = $this->produk_pakaian_jadi_model->get_produk_group();
+        foreach($produk as $p){
+            $p->ukuran_stok = $this->produk_pakaian_jadi_model
+                ->get_ukuran_stok_by_produk($p->nama_pakaian);
+        }
+        $data['produk'] = $produk;
+        $this->load->view('customer/collection', $data);
     }
 
     public function custom_outfit()

@@ -69,18 +69,9 @@
                     </td>
 
                     <td>
-                        <div class="produk-action">
-                            <a href="#" class="edit-btn">
-                                <i class="fa-solid fa-pen"></i>
-                            </a>
-                            <a href="#" class="delete-btn">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </td>
-                    <td>
                         <?= $p->stok; ?>
                     </td>
+
                     <td>
                         <?= $p->diskon_produk; ?>%
                     </td>
@@ -89,6 +80,17 @@
                         <span class="status-badge <?= strtolower($p->status_produk); ?>">
                             <?= $p->status_produk; ?>
                         </span>
+                    </td>
+
+                    <td>
+                        <div class="produk-action">
+                            <a href="#" class="edit-btn">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <a href="#" class="delete-btn">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>
                     </td>
                     </td>
                 </tr>

@@ -1967,3 +1967,38 @@ section{
         text-align: center;
     }
 }
+
+.product-img{
+    position: relative;
+}
+
+.discount-badge{
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(255, 235, 242, .94);
+    color: #d56c91;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 8px 18px rgba(255,140,180,.18);
+}
+
+.modal-discount-info{
+    color: #d56c91;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.size-stock-info{
+    margin-top: 8px;
+    font-size: 13px;
+    color: #8f8f8f;
+}
+
+.size-btn.active{
+    background: #d56c91;
+    color: white;
+    border-color: #d56c91;
+}

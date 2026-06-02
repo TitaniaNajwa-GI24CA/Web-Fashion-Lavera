@@ -9,6 +9,11 @@ const modalMaterial = document.getElementById('modalMaterial');
 const modalModel = document.getElementById('modalModel');
 const sliderDots = document.getElementById('sliderDots');
 
+const modalDiscountInfo = document.getElementById('modalDiscountInfo');
+const stockInfo = document.getElementById('sizeStockInfo');
+const orderLink = document.getElementById('orderLink');
+const cartLink = document.getElementById('cartLink');
+
 let currentImages = [];
 let currentIndex = 0;
 let sliderInterval = null;
@@ -17,6 +22,11 @@ cards.forEach(card => {
     const detailBtn = card.querySelector('.detail-btn');
 
     detailBtn.addEventListener('click', () => {
+        const id = card.dataset.id;
+        const diskon = parseInt(card.dataset.diskon || 0);
+        const stok = card.dataset.stok;
+        const ukuran = card.dataset.ukuran;
+
         currentImages = JSON.parse(card.dataset.imgs);
         currentIndex = 0;
 
@@ -25,6 +35,36 @@ cards.forEach(card => {
         modalPrice.textContent = card.dataset.price;
         modalMaterial.textContent = card.dataset.material;
         modalModel.textContent = card.dataset.model;
+
+        if(diskon > 0){
+            modalDiscountInfo.innerHTML = `Diskon tersedia sebesar <b>${diskon}%</b>`;
+        }else{
+            modalDiscountInfo.innerHTML = `Produk ini tidak memiliki diskon.`;
+        }
+
+        orderLink.href = baseUrl + 'pesanan/form/' + id;
+        cartLink.href = baseUrl + 'keranjang/tambah/' + id;
+
+        stockInfo.innerHTML = 'Pilih ukuran untuk melihat stok.';
+
+        document.querySelectorAll('.size-btn').forEach(btnUkuran => {
+            btnUkuran.classList.remove('active');
+
+            if(btnUkuran.dataset.size === ukuran){
+                btnUkuran.style.display = 'inline-flex';
+            }else{
+                btnUkuran.style.display = 'none';
+            }
+
+            btnUkuran.onclick = function(){
+                document.querySelectorAll('.size-btn').forEach(x => {
+                    x.classList.remove('active');
+                });
+
+                this.classList.add('active');
+                stockInfo.innerHTML = `Stok tersedia : ${stok} pcs`;
+            };
+        });
 
         createDots();
         updateDots();
@@ -72,6 +112,10 @@ function changeImage() {
 function startSlider() {
     clearInterval(sliderInterval);
 
+    if(currentImages.length <= 1){
+        return;
+    }
+
     sliderInterval = setInterval(() => {
         currentIndex = (currentIndex + 1) % currentImages.length;
         changeImage();
@@ -83,10 +127,14 @@ function closeProductModal() {
     clearInterval(sliderInterval);
 }
 
-closeModal.onclick = closeProductModal;
+if(closeModal){
+    closeModal.onclick = closeProductModal;
+}
 
-modal.addEventListener('click', function(e) {
-    if (e.target === modal) {
-        closeProductModal();
-    }
-});
+if(modal){
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeProductModal();
+        }
+    });
+}

@@ -103,7 +103,7 @@
 
         <div class="auth-link">
             Sudah punya akun?
-            <a href="<?= base_url('login'); ?>">Login di sini</a>
+            <a href="<?= base_url('login_customer'); ?>">Login di sini</a>
         </div>
 
     </div>
