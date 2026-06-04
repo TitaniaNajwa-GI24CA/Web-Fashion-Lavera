@@ -119,4 +119,175 @@ class produk_pakaian_jadi extends CI_Controller {
 
         return $data;
     }
+
+    public function hapus($id_pakaian_jadi)
+    {
+        $produk = $this->produk_pakaian_jadi_model
+            ->get_by_id($id_pakaian_jadi);
+
+        if(!$produk){
+
+            $this->session->set_flashdata(
+                'error',
+                'Produk tidak ditemukan.'
+            );
+
+            redirect('admin/produk-pakaian-jadi');
+        }
+
+        $folder = FCPATH . 'assets/img/produk/';
+
+        if(!empty($produk->foto_1) &&
+            file_exists($folder . $produk->foto_1))
+        {
+            unlink($folder . $produk->foto_1);
+        }
+
+        if(!empty($produk->foto_2) &&
+            file_exists($folder . $produk->foto_2))
+        {
+            unlink($folder . $produk->foto_2);
+        }
+        if(!empty($produk->foto_3) &&
+            file_exists($folder . $produk->foto_3))
+        {
+            unlink($folder . $produk->foto_3);
+        }
+        if(!empty($produk->foto_4) &&
+            file_exists($folder . $produk->foto_4))
+        {
+            unlink($folder . $produk->foto_4);
+        }
+        $this->produk_pakaian_jadi_model
+            ->delete($id_pakaian_jadi);
+
+        $this->session->set_flashdata(
+            'success',
+            'Produk berhasil dihapus.'
+        );
+        redirect('admin/produk-pakaian-jadi');
+    }
+
+    public function update()
+    {
+        $id_pakaian_jadi =
+            $this->input->post('id_pakaian_jadi', true);
+        $produk =
+            $this->produk_pakaian_jadi_model
+            ->get_by_id($id_pakaian_jadi);
+
+        if(!$produk){
+
+            $this->session->set_flashdata(
+                'error',
+                'Produk tidak ditemukan.'
+            );
+
+            redirect('admin/produk-pakaian-jadi');
+        }
+
+        $data = [
+
+            'nama_pakaian' =>
+                $this->input->post('nama_pakaian', true),
+
+            'detail_model' =>
+                $this->input->post('detail_model', true),
+
+            'detail_bahan' =>
+                $this->input->post('detail_bahan', true),
+
+            'ukuran' =>
+                $this->input->post('ukuran', true),
+
+            'harga' =>
+                $this->input->post('harga', true),
+
+            'stok' =>
+                $this->input->post('stok', true),
+
+            'diskon_produk' =>
+                $this->input->post('diskon_produk', true),
+
+            'status_produk' =>
+                $this->input->post('status_produk', true)
+        ];
+
+        for($i = 1; $i <= 4; $i++){
+
+            $field = 'foto_'.$i;
+
+            if(!empty($_FILES[$field]['name'])){
+
+                $foto_baru =
+                    $this->upload_satu_foto_produk($field);
+
+                if($foto_baru === false){
+                    redirect('admin/produk-pakaian-jadi');
+                }
+
+                if(!empty($produk->$field)){
+
+                    $path =
+                        FCPATH .
+                        'assets/img/produk/' .
+                        $produk->$field;
+
+                    if(file_exists($path)){
+                        unlink($path);
+                    }
+                }
+
+                $data[$field] = $foto_baru;
+            }
+        }
+
+        $this->produk_pakaian_jadi_model
+            ->update($id_pakaian_jadi, $data);
+
+        $this->session->set_flashdata(
+            'success',
+            'Produk berhasil diperbarui ✨'
+        );
+
+        redirect('admin/produk-pakaian-jadi');
+    }
+
+    private function upload_satu_foto_produk($field)
+    {
+        $upload_path =
+            FCPATH . 'assets/img/produk/';
+            
+        if(!is_dir($upload_path)){
+            mkdir($upload_path, 0777, true);
+        }
+
+        $config['upload_path'] =
+            $upload_path;
+
+        $config['allowed_types'] =
+            'jpg|jpeg|png|webp';
+
+        $config['max_size'] =
+            2048;
+
+        $config['encrypt_name'] =
+            TRUE;
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+
+        if($this->upload->do_upload($field)){
+
+            return $this->upload
+                ->data('file_name');
+        }
+
+        $this->session->set_flashdata(
+            'error',
+            $this->upload->display_errors()
+        );
+
+        return false;
+    }
 }

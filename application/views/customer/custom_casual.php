@@ -3,11 +3,8 @@
 <?php
 $custom = [
     'label' => 'Custom Outfit',
-
     'title' => 'Custom Casual Wear',
-
     'desc' => 'Buat outfit casual custom yang nyaman, stylish, dan cocok untuk komunitas, kampus, brand, maupun kebutuhan seragam santai.',
-
     'hero_img' => 'custom-casual.png',
 
     'features' => [

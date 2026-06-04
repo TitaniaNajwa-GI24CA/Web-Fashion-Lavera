@@ -40,8 +40,25 @@
             </div>
         </a>
 
+        <?php if(!empty($custom_db)): ?>
+            <?php foreach($custom_db as $c): ?>
+                <a href="<?= base_url('custom-detail-db/'.$c->id_custom); ?>"
+                class="custom-main-card">
+                    <img src="<?= base_url('assets/img/custom/'.$c->gambar_referensi); ?>"
+                        alt="<?= $c->kategori_custom; ?>">
+                    <div class="custom-main-overlay">
+                        <h2>
+                            <?= $c->kategori_custom; ?>
+                        </h2>
+                        <span>
+                            Custom This Style
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
-
 </section>
 
 <?php $this->load->view('layouts/footer'); ?>

@@ -82,6 +82,34 @@
 
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+
+        const deleteModal = document.getElementById("deleteModal");
+        const closeDeleteModal = document.getElementById("closeDeleteModal");
+        const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+
+        document.querySelectorAll(".open-delete-modal").forEach(function(btn){
+            btn.addEventListener("click", function(e){
+                e.preventDefault();
+
+                confirmDeleteBtn.href = this.dataset.url;
+                deleteModal.classList.add("active");
+            });
+        });
+
+        closeDeleteModal.addEventListener("click", function(){
+            deleteModal.classList.remove("active");
+        });
+
+        deleteModal.addEventListener("click", function(e){
+            if(e.target === deleteModal){
+                deleteModal.classList.remove("active");
+            }
+        });
+
+    });
+</script>
 <script src="<?= base_url('assets/js/pop-up.js'); ?>"></script>
 </body>
 </html>

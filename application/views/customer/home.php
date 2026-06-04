@@ -39,9 +39,79 @@
              <!--    <span class="cart-count"><?= $jumlah_cart; ?></span> -->
             </div>
 
-            <div class="cart-box">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <span class="cart-count">0</span>
+            <div class="history-dropdown-box">
+                <div class="cart-box" id="historyToggle">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span class="cart-count"><?= count($riwayat_pakaian) + count($riwayat_custom); ?></span>
+                </div>
+
+                <div class="history-dropdown" id="historyDropdown">
+                    <div class="history-dropdown-header">
+                        <div>
+                            <h4>Riwayat Pesanan</h4>
+                            <small>Pesanan terbaru kamu</small>
+                        </div>
+
+                        <div class="history-header-actions">
+                            <a href="<?= base_url('riwayat-pesanan'); ?>" class="history-expand-link">
+                                <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                            </a>
+
+                            <button type="button" id="closeHistoryDropdown" class="history-close-btn">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="history-mini-tabs">
+                        <button class="history-mini-tab active" data-target="miniReadyOrder">
+                            Pakaian Jadi
+                        </button>
+                        <button class="history-mini-tab" data-target="miniCustomOrder">
+                            Custom
+                        </button>
+                    </div>
+
+                    <div class="history-mini-content active" id="miniReadyOrder">
+                        <?php if(!empty($riwayat_pakaian)): ?>
+                            <?php foreach(array_slice($riwayat_pakaian, 0, 3) as $r): ?>
+                                <a href="<?= base_url('pesanan/detail/'.$r->id_pesanan); ?>" class="history-mini-item">
+                                    <div>
+                                        <h5><?= $r->kode_pesanan; ?></h5>
+                                        <span><?= date('d M Y', strtotime($r->tanggal_pesanan)); ?></span>
+                                    </div>
+
+                                    <small><?= $r->status_pesanan; ?></small>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="history-empty">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                <p>Belum ada pesanan pakaian jadi.</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="history-mini-content" id="miniCustomOrder">
+                        <?php if(!empty($riwayat_custom)): ?>
+                            <?php foreach(array_slice($riwayat_custom, 0, 3) as $r): ?>
+                                <a href="<?= base_url('pesanan/detail/'.$r->id_pesanan); ?>" class="history-mini-item">
+                                    <div>
+                                        <h5><?= $r->kode_pesanan; ?></h5>
+                                        <span><?= date('d M Y', strtotime($r->tanggal_pesanan)); ?></span>
+                                    </div>
+
+                                    <small><?= $r->status_pesanan; ?></small>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="history-empty">
+                                <i class="fa-solid fa-scissors"></i>
+                                <p>Belum ada request custom.</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
 
             <div class="cart-box">
@@ -120,7 +190,7 @@
 </section>
 <?php $this->load->view('customer/about'); ?>
 <?php $this->load->view('customer/collection', ['produk' => $produk]); ?>
-<?php $this->load->view('customer/custom'); ?>
+<?php $this->load->view('customer/custom', ['custom_db' => $custom_db]); ?>
 <?php $this->load->view('customer/contact'); ?>
 
 <?php if($this->session->userdata('login') == TRUE && $this->session->userdata('role') == 'customer'): ?>

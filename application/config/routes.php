@@ -55,3 +55,16 @@ $route['contact']       = 'home/contact';
 $route['admin/dashboard'] = 'admin/dashboard';
 $route['admin/produk-pakaian-jadi'] = 'admin/produk_pakaian_jadi';
 $route['admin/simpan-produk-pakaian-jadi'] = 'admin/produk_pakaian_jadi/simpan';
+$route['admin/hapus-produk-pakaian-jadi/(:num)'] = 'admin/produk_pakaian_jadi/hapus/$1';
+$route['admin/update-produk-pakaian-jadi'] = 'admin/produk_pakaian_jadi/update';
+$route['admin/kategori-custom'] = 'admin/kategori_custom';
+$route['admin/simpan-kategori-custom'] = 'admin/kategori_custom/simpan';
+$route['admin/update-kategori-custom'] = 'admin/kategori_custom/update';
+$route['pesanan/form/(:num)'] = 'pesanan/form/$1';
+$route['keranjang/tambah/(:num)'] = 'keranjang/tambah/$1';
+
+
+$route['pesanan/form/(:num)'] = 'pesanan/form/$1';
+$route['pesanan/simpan'] = 'pesanan/simpan';
+$route['riwayat-pesanan'] = 'pesanan/riwayat';
+$route['pesanan/detail/(:num)'] = 'pesanan/detail/$1';

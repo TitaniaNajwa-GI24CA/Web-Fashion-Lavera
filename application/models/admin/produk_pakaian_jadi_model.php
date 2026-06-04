@@ -50,4 +50,26 @@ class produk_pakaian_jadi_model extends CI_Model {
             ->get('tbl_pakaian_jadi')
             ->result();
     }
+
+    public function delete($id_pakaian_jadi)
+    {
+        return $this->db
+            ->where('id_pakaian_jadi', $id_pakaian_jadi)
+            ->delete('tbl_pakaian_jadi');
+    }
+
+    public function get_by_id($id_pakaian_jadi)
+    {
+        return $this->db
+            ->where('id_pakaian_jadi', $id_pakaian_jadi)
+            ->get('tbl_pakaian_jadi')
+            ->row();
+    }
+
+    public function update($id_pakaian_jadi, $data)
+    {
+        return $this->db
+            ->where('id_pakaian_jadi', $id_pakaian_jadi)
+            ->update('tbl_pakaian_jadi', $data);
+    }
 }

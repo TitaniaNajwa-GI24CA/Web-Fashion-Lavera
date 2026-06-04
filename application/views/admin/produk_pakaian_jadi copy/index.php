@@ -1,15 +1,11 @@
 <div class="admin-page-header">
-    <a href="#" class="btn-tambah-produk" id="openProdukModal">
-        <i class="fa-solid fa-plus"></i>
-        Tambah Produk
-    </a>
 </div>
 
 <div class="produk-card">
     <div class="produk-topbar">
         <div class="search-product">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchProduk" placeholder="Cari nama produk, model, bahan...">
+            <input type="text" id="searchProduk" placeholder="Cari pesanan...">
         </div>
 
         <select class="filter-status" id="filterStatus">

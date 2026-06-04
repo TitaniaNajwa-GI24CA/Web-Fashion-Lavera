@@ -15,12 +15,31 @@ class Home extends CI_Controller {
         $data['customer'] = $this->db->get()->row();
     }
         $this->load->model('admin/produk_pakaian_jadi_model');
+        $this->load->model('admin/kategori_custom_model');
         $produk = $this->produk_pakaian_jadi_model->get_produk_group();
         foreach($produk as $p){
             $p->ukuran_stok = $this->produk_pakaian_jadi_model
                 ->get_ukuran_stok_by_produk($p->nama_pakaian);
         }
         $data['produk'] = $produk;
+        $data['custom_db'] = $this->kategori_custom_model->get_custom_admin_aktif();
+        $data['riwayat_pakaian'] = [];
+        $data['riwayat_custom'] = [];
+            if(
+                $this->session->userdata('login') &&
+                $this->session->userdata('role') == 'customer'
+            ){
+
+                $id_user = $this->session->userdata('id_user');
+
+                $this->load->model('Pesanan_model');
+
+                $data['riwayat_pakaian'] =
+                    $this->Pesanan_model->get_riwayat_pakaian_jadi($id_user);
+
+                $data['riwayat_custom'] =
+                    $this->Pesanan_model->get_riwayat_custom($id_user);
+            }
         $this->load->view('customer/home', $data);
     }
 

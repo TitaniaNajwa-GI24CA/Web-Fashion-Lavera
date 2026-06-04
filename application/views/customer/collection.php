@@ -61,10 +61,6 @@
                             </span>
                         <?php endif; ?>
 
-                        <button class="love-btn" type="button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
                     </div>
 
                     <div class="product-info">
@@ -128,6 +124,7 @@
             <div class="modal-actions">
 
                 <a href="#" id="orderLink" class="order-btn">
+                    <i class="fa-solid fa-receipt"></i>
                     Pesan Sekarang
                 </a>
 
