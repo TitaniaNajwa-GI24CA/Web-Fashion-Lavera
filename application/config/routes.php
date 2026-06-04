@@ -68,3 +68,5 @@ $route['pesanan/form/(:num)'] = 'pesanan/form/$1';
 $route['pesanan/simpan'] = 'pesanan/simpan';
 $route['riwayat-pesanan'] = 'pesanan/riwayat';
 $route['pesanan/detail/(:num)'] = 'pesanan/detail/$1';
+$route['admin/pesanan-pakaian-jadi'] = 'admin/pesanan_pakaian_jadi';
+$route['admin/update-status-pesanan-pakaian-jadi'] = 'admin/pesanan_pakaian_jadi/update_status';

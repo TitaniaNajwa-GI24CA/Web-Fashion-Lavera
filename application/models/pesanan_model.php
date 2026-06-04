@@ -68,7 +68,7 @@ class pesanan_model extends CI_Model {
         $this->db->select('
             tbl_pesanan.*,
             tbl_pakaian_jadi.nama_pakaian,
-            tbl_pakaian_jadi.foto_1
+            tbl_pakaian_jadi.foto_4
         ');
 
         $this->db->from('tbl_pesanan');
@@ -126,7 +126,7 @@ class pesanan_model extends CI_Model {
             tbl_detail_pesanan.*,
             tbl_pakaian_jadi.nama_pakaian,
             tbl_pakaian_jadi.ukuran,
-            tbl_pakaian_jadi.foto_1
+            tbl_pakaian_jadi.foto_4
         ');
         $this->db->from('tbl_detail_pesanan');
         $this->db->join('tbl_pakaian_jadi', 'tbl_pakaian_jadi.id_pakaian_jadi = tbl_detail_pesanan.id_pakaian_jadi', 'left');

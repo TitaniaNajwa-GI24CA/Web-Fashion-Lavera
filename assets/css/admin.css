@@ -866,7 +866,9 @@ body{
 }
 
 .edit-btn,
-.delete-btn{
+.delete-btn,
+.view-btn,
+.print-btn{
     width: 42px;
     height: 42px;
 
@@ -881,18 +883,18 @@ body{
     transition: .3s ease;
 }
 
-.edit-btn{
-    background: #fff0f5;
-    color: #d96f94;
-}
-
-.delete-btn{
+.edit-btn,
+.delete-btn,
+.view-btn,
+.print-btn{
     background: #ffe8ea;
     color: #db5f6f;
 }
 
 .edit-btn:hover,
-.delete-btn:hover{
+.delete-btn:hover,
+.view-btn:hover,
+.print-btn:hover{
     transform: translateY(-3px);
 }
 
@@ -1270,4 +1272,93 @@ body{
     font-size: 12px;
 }
 
+.order-status{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
+    min-width: 120px;
+    height: 38px;
+
+    padding: 0 14px;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-transform: capitalize;
+}
+
+.order-status.pending{
+    background: #fff5d9;
+    color: #d4a017;
+}
+
+.order-status.diproses{
+    background: #e8f2ff;
+    color: #3f7ee8;
+}
+
+.order-status.diproduksi{
+    background: #f0f0f0;
+    color: #666;
+}
+
+.order-status.siap_diambil{
+    background: #d4edda;
+    color: #155724;
+}
+
+.order-status.selesai{
+    background: #e6f8ed;
+    color: #49a267;
+}
+
+.order-status.dikirim{
+    background: #e6f8ff;
+    color: #1095c1;
+}
+
+.order-status.dibatalkan{
+    background: #ffe6ea;
+    color: #d9415e;
+}
+
+.payment-status{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 135px;
+    height: 36px;
+
+    padding: 0 14px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: capitalize;
+}
+
+.payment-status.belum_bayar{
+    background: #fff5d9;
+    color: #d4a017;
+}
+
+.payment-status.menunggu_verifikasi{
+    background: #e8f2ff;
+    color: #3f7ee8;
+}
+
+.payment-status.lunas{
+    background: #e5fff1;
+    color: #14995d;
+}
+
+.payment-status.ditolak{
+    background: #ffe6ea;
+    color: #d9415e;
+}

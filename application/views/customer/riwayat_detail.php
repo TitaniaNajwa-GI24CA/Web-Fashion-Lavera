@@ -59,7 +59,7 @@
 
             <?php foreach($detail_produk as $d): ?>
                 <div class="receipt-product-item">
-                    <img src="<?= base_url('assets/img/produk/' . $d->foto_1); ?>">
+                    <img src="<?= base_url('assets/img/produk/' . $d->foto_4); ?>">
 
                     <div>
                         <h4><?= $d->nama_pakaian; ?></h4>

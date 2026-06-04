@@ -559,3 +559,34 @@ function filterHistory(filter){
         }
     }
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+    const modal = document.getElementById("statusPesananModal");
+    const closeModal = document.getElementById("closeStatusPesananModal");
+
+    document.querySelectorAll(".open-status-modal").forEach(function(btn){
+        btn.addEventListener("click", function(e){
+            e.preventDefault();
+
+            document.getElementById("edit_id_pesanan").value = this.dataset.id;
+            document.getElementById("edit_kode_pesanan").value = this.dataset.kode;
+            document.getElementById("edit_status_pesanan").value = this.dataset.status;
+
+            modal.classList.add("active");
+        });
+    });
+
+    if(closeModal){
+        closeModal.addEventListener("click", function(){
+            modal.classList.remove("active");
+        });
+    }
+
+    if(modal){
+        modal.addEventListener("click", function(e){
+            if(e.target === modal){
+                modal.classList.remove("active");
+            }
+        });
+    }
+});

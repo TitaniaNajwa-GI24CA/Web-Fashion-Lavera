@@ -23,7 +23,7 @@
                     <div class="history-order-left">
                         <div class="history-order-image">
                             <?php if($r->tipe_pesanan == 'pakaian_jadi'): ?>
-                                <img src="<?= base_url('assets/img/produk/' . $r->foto_1); ?>">
+                                <img src="<?= base_url('assets/img/produk/' . $r->foto_4); ?>">
                             <?php else: ?>
                                 <img src="<?= base_url('assets/img/request/' . $r->gambar_desain); ?>">
                             <?php endif; ?>
