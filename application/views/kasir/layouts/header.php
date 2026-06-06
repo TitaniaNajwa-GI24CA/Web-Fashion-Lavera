@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard | Lavéra</title>
+    <title>Kasir Dashboard | Lavéra</title>
     <link rel="stylesheet" href="<?= base_url('assets/css/staff.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/auth.css'); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

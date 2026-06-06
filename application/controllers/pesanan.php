@@ -190,7 +190,7 @@ class pesanan extends CI_Controller {
         $this->pesanan_model->insert_notifikasi([
             'id_customer'       => $pesanan->id_customer,
             'id_pesanan'        => $id_pesanan,
-            'id_pembayaran'     => NULL,
+            'id_pembayaran'     => $pesanan->id_pembayaran,
             'id_request'        => NULL,
             'jenis_pembayaran'  => 'pembayaran berhasil',
             'judul_notifikasi'  => 'Konfirmasi Pembayaran Baru',
