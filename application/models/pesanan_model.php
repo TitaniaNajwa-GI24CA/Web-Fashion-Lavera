@@ -39,6 +39,11 @@ class pesanan_model extends CI_Model {
         return $this->db->insert('tbl_detail_pesanan', $data);
     }
 
+    public function insert_pembayaran($data)
+    {
+        return $this->db->insert('tbl_pembayaran', $data);
+    }
+
     public function get_riwayat_pakaian_jadi($id_user)
     {
         $this->db->select('tbl_pesanan.*');
@@ -105,19 +110,39 @@ class pesanan_model extends CI_Model {
 
     public function get_detail_riwayat($id_pesanan, $id_user)
     {
-        $this->db->select('
-            tbl_pesanan.*,
-            tbl_customer.alamat,
-            tbl_users.nama_user,
-            tbl_users.no_telepon
-        ');
-        $this->db->from('tbl_pesanan');
-        $this->db->join('tbl_customer', 'tbl_customer.id_customer = tbl_pesanan.id_customer');
-        $this->db->join('tbl_users', 'tbl_users.id_user = tbl_customer.id_user');
-        $this->db->where('tbl_pesanan.id_pesanan', $id_pesanan);
-        $this->db->where('tbl_customer.id_user', $id_user);
+        return $this->db
+            ->select('
+                tbl_pesanan.*,
+                tbl_customer.id_customer,
+                tbl_users.nama_user,
+                tbl_users.no_telepon
+            ')
+            ->from('tbl_pesanan')
+            ->join('tbl_customer', 'tbl_customer.id_customer = tbl_pesanan.id_customer')
+            ->join('tbl_users', 'tbl_users.id_user = tbl_customer.id_user')
+            ->where('tbl_pesanan.id_pesanan', $id_pesanan)
+            ->where('tbl_customer.id_user', $id_user)
+            ->get()
+            ->row();
+    }
 
-        return $this->db->get()->row();
+    public function update_pembayaran_by_pesanan($id_pesanan, $data)
+    {
+        return $this->db
+            ->where('id_pesanan', $id_pesanan)
+            ->update('tbl_pembayaran', $data);
+    }
+
+    public function update_pesanan($id_pesanan, $data)
+    {
+        return $this->db
+            ->where('id_pesanan', $id_pesanan)
+            ->update('tbl_pesanan', $data);
+    }
+
+    public function insert_notifikasi($data)
+    {
+        return $this->db->insert('tbl_notifikasi', $data);
     }
 
     public function get_detail_produk_pesanan($id_pesanan)

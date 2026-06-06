@@ -2196,10 +2196,8 @@ section{
 
 .order-form-grid{
     display: grid;
-
     grid-template-columns: repeat(2,1fr);
-
-    gap: 22px;
+    gap: 20px;
 }
 
 .order-full{
@@ -3027,4 +3025,254 @@ section{
 .receipt-header-content span{
     color: #8d6b6b;
     font-size: 18px;
+}
+
+.delivery-option-box{
+    display: none;
+    margin-top: 22px;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #fff7fa, #fff1f4);
+    border: 1px solid #f5d6df;
+}
+
+.delivery-option-box h4{
+    color: #4b2f28;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.delivery-option-box h4 i{
+    color: #d96f94;
+}
+
+.delivery-mini-table{
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 16px;
+    margin-bottom: 12px;
+}
+
+.delivery-mini-table th{
+    background: #ffe8ef;
+    color: #9b536b;
+    padding: 12px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.delivery-mini-table td{
+    padding: 12px;
+    background: rgba(255,255,255,.72);
+    color: #6b4b44;
+    border-bottom: 1px solid #f4d8df;
+    font-size: 13px;
+}
+
+.delivery-option-box small{
+    color: #9a7a7a;
+    font-size: 12px;
+}
+
+.payment-confirm-modal,
+.payment-success-modal{
+    position: fixed;
+    inset: 0;
+    background: rgba(255,240,246,.45);
+    backdrop-filter: blur(8px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+}
+
+.payment-confirm-modal.active,
+.payment-success-modal.active{
+    display: flex;
+}
+
+.payment-confirm-box{
+    width: 540px;
+    max-width: calc(100% - 28px);
+    background: rgba(255,248,250,.96);
+    border-radius: 30px;
+    padding: 34px;
+    position: relative;
+    box-shadow: 0 25px 70px rgba(210,120,150,.25);
+}
+
+.payment-confirm-close{
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: #ffe4ed;
+    color: #d96f94;
+    cursor: pointer;
+}
+
+.payment-confirm-header{
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.payment-confirm-header img{
+    width: 90px;
+    margin-bottom: 10px;
+}
+
+.payment-confirm-header h2{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    color: #4b2f28;
+}
+
+.payment-confirm-header p{
+    color: #8d6b6b;
+}
+
+.payment-confirm-info{
+    background: #fff3f7;
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 20px;
+}
+
+.payment-confirm-info div{
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 9px 0;
+    border-bottom: 1px dashed #edcbd5;
+}
+
+.payment-confirm-info div:last-child{
+    border-bottom: none;
+}
+
+.payment-confirm-info span{
+    color: #9a7a7a;
+}
+
+.payment-confirm-info b{
+    color: #4b2f28;
+    text-align: right;
+}
+
+.payment-upload-group label{
+    display: block;
+    color: #5a392c;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.payment-upload-group input{
+    width: 100%;
+    padding: 14px;
+    background: white;
+    border: 1px solid #efd2da;
+    border-radius: 16px;
+}
+
+.payment-upload-group small{
+    display: block;
+    color: #9a7a7a;
+    margin-top: 8px;
+}
+
+.payment-confirm-submit{
+    width: 100%;
+    height: 54px;
+    margin-top: 22px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ef9eb8, #c7826b);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.payment-success-box{
+    width: 360px;
+    background: rgba(255,248,250,.96);
+    border-radius: 28px;
+    padding: 34px;
+    text-align: center;
+    box-shadow: 0 25px 70px rgba(210,120,150,.25);
+}
+
+.payment-success-icon{
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #ef9eb8, #c7826b);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+.payment-success-box h3{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    color: #4b2f28;
+}
+
+.payment-success-box p{
+    color: #8d6b6b;
+}
+
+.receipt-download-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 14px 26px;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    background: linear-gradient(
+        135deg,
+        #ef9eb8,
+        #c7826b
+    );
+
+    color: white;
+
+    font-weight: 600;
+
+    transition: .3s ease;
+}
+
+.receipt-download-btn:hover{
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 25px rgba(239,158,184,.35);
+}
+
+.receipt-wait-btn{
+    border: none;
+
+    padding: 14px 26px;
+
+    border-radius: 999px;
+
+    background: #fff3d9;
+
+    color: #c28a1d;
+
+    font-weight: 600;
+
+    cursor: not-allowed;
 }

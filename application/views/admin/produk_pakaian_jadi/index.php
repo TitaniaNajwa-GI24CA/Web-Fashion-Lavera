@@ -20,7 +20,7 @@
     </div>
 
     <div class="table-responsive">
-        <table class="produk-table">
+        <table class="produk-table lavera-datatable">
             <thead>
                 <tr>
                     <th>Foto</th>
@@ -102,8 +102,6 @@
                                 data-url="<?= base_url('admin/hapus-produk-pakaian-jadi/' . $p->id_pakaian_jadi); ?>">
                                     <i class="fa-solid fa-trash"></i>
                             </a>
-                        </div>
-                    </td>
                     </td>
                 </tr>
                 <?php endforeach; ?>

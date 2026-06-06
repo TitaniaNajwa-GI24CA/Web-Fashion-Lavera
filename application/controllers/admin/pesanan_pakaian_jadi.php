@@ -53,4 +53,25 @@ class Pesanan_pakaian_jadi extends CI_Controller {
 
         return $data;
     }
+
+    public function detail($id_pesanan)
+    {
+        $data = $this->admin_data();
+
+        $data['page_title'] = 'Detail Pesanan';
+        $data['page_subtitle'] = 'Informasi lengkap pesanan customer';
+
+        $data['pesanan'] =
+            $this->pesanan_pakaian_jadi_model->get_detail($id_pesanan);
+
+        if(!$data['pesanan']){
+            show_404();
+        }
+
+        $this->load->view('admin/layouts/header');
+        $this->load->view('admin/layouts/sidebar');
+        $this->load->view('admin/layouts/topbar',$data);
+        $this->load->view('admin/pesanan/detail_pesanan',$data);
+        $this->load->view('admin/layouts/footer');
+    }
 }

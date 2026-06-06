@@ -57,4 +57,64 @@ class pesanan_pakaian_jadi_model extends CI_Model {
             ->where('id_pesanan', $id_pesanan)
             ->update('tbl_pesanan', $data);
     }
+
+    public function get_detail($id_pesanan)
+    {
+        return $this->db
+            ->select('
+                tbl_pesanan.*,
+                tbl_detail_pesanan.jumlah,
+                tbl_detail_pesanan.harga,
+                tbl_detail_pesanan.subtotal,
+                tbl_pakaian_jadi.nama_pakaian,
+                tbl_pakaian_jadi.ukuran,
+                tbl_pakaian_jadi.foto_1,
+                tbl_users.nama_user,
+                tbl_users.email,
+                tbl_users.no_telepon,
+                tbl_customer.alamat,
+                tbl_pembayaran.metode_pembayaran,
+                tbl_pembayaran.status_pembayaran,
+                tbl_pembayaran.bukti_pembayaran,
+                tbl_pembayaran.tanggal_pembayaran,
+                tbl_pembayaran.kode_pembayaran,
+                tbl_pembayaran.jenis_pembayaran,
+                tbl_pembayaran.jumlah_bayar
+            ')
+            ->from('tbl_pesanan')
+
+            ->join(
+                'tbl_detail_pesanan',
+                'tbl_detail_pesanan.id_pesanan = tbl_pesanan.id_pesanan'
+            )
+
+            ->join(
+                'tbl_pakaian_jadi',
+                'tbl_pakaian_jadi.id_pakaian_jadi = tbl_detail_pesanan.id_pakaian_jadi'
+            )
+
+            ->join(
+                'tbl_customer',
+                'tbl_customer.id_customer = tbl_pesanan.id_customer'
+            )
+
+            ->join(
+                'tbl_users',
+                'tbl_users.id_user = tbl_customer.id_user'
+            )
+
+            ->join(
+                'tbl_pembayaran',
+                'tbl_pembayaran.id_pesanan = tbl_pesanan.id_pesanan',
+                'left'
+            )
+
+            ->where(
+                'tbl_pesanan.id_pesanan',
+                $id_pesanan
+            )
+
+            ->get()
+            ->row();
+    }
 }

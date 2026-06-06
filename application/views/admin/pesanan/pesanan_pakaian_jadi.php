@@ -2,24 +2,43 @@
     <div class="produk-topbar">
         <div class="search-product">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchPesanan" placeholder="Cari kode pesanan, customer, produk...">
+            <input
+                type="text"
+                id="searchPesanan"
+                placeholder="Cari kode pesanan, customer, produk...">
         </div>
 
-        <select class="filter-status" id="filterStatusPesanan">
+        <select id="filterBulan" class="filter-status">
+            <option value="">Semua Bulan</option>
+
+            <?php
+            for($i=1;$i<=12;$i++):
+            ?>
+                <option value="<?= $i ?>">
+                    <?= date('F', mktime(0,0,0,$i,1)); ?>
+                </option>
+            <?php endfor; ?>
+        </select>
+
+        <select id="filterStatusPesanan" class="filter-status">
             <option value="">Semua Status</option>
             <option value="pending">Pending</option>
             <option value="diproses">Diproses</option>
             <option value="diproduksi">Diproduksi</option>
             <option value="siap_diambil">Siap Diambil</option>
+            <option value="dikirim">Dikirim</option>
+            <option value="selesai">Selesai</option>
+            <option value="dibatalkan">Dibatalkan</option>
         </select>
     </div>
 
     <div class="table-responsive">
-        <table class="produk-table">
+        <table class="produk-table lavera-datatable">
             <thead>
                 <tr>
                     <th>Foto</th>
                     <th>Pesanan</th>
+                    <th>Waktu Pesanan</th>
                     <th>Customer</th>
                     <th>Jumlah</th>
                     <th>Total</th>
@@ -33,7 +52,7 @@
             <tbody>
                 <?php if(!empty($pesanan)): ?>
                     <?php foreach($pesanan as $p): ?>
-                        <tr class="pesanan-row" data-status="<?= $p->status_pesanan; ?>">
+                        <tr class="pesanan-row" data-status="<?= strtolower($p->status_pesanan); ?>" data-bulan="<?= date('n', strtotime($p->tanggal_pesanan)); ?>">
                             <td>
                                 <img src="<?= base_url('assets/img/produk/' . $p->foto_4); ?>" class="produk-img">
                             </td>
@@ -43,6 +62,18 @@
                                     <h4><?= $p->kode_pesanan; ?></h4>
                                     <span><?= $p->nama_pakaian; ?></span>
                                     <small>Ukuran: <?= $p->ukuran; ?></small>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="order-date">
+                                    <strong>
+                                        <?= date('d M Y', strtotime($p->tanggal_pesanan)); ?>
+                                    </strong>
+
+                                    <small>
+                                        <?= date('H:i', strtotime($p->tanggal_pesanan)); ?> WIB
+                                    </small>
                                 </div>
                             </td>
 
@@ -83,8 +114,7 @@
 
                             <td>
                                 <div class="produk-action">
-                                    <a href="<?= base_url('admin/detail-pesanan/' . $p->id_pesanan); ?>"
-                                    class="view-btn">
+                                    <a href="<?= base_url('admin/detail-pesanan/'.$p->id_pesanan); ?>" class="view-btn">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
 
@@ -95,12 +125,6 @@
                                         data-status="<?= $p->status_pesanan; ?>">
                                             <i class="fa-solid fa-pen"></i>
                                     </a>
-
-                                    <a href="<?= base_url('admin/cetak-nota/' . $p->id_pesanan); ?>"
-                                    class="print-btn">
-                                        <i class="fa-solid fa-print"></i>
-                                    </a>
-
                                 </div>
                             </td>
                         </tr>
@@ -152,6 +176,9 @@
                         <option value="diproses">Diproses</option>
                         <option value="diproduksi">Diproduksi</option>
                         <option value="siap_diambil">Siap Diambil</option>
+                        <option value="dikirim">Dikirim</option>
+                        <option value="selesai">Selesai</option>
+                        <option value="dibatalkan">Dibatalkan</option>
                     </select>
                 </div>
 

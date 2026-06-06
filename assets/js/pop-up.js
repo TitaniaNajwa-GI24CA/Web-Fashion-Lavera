@@ -1,98 +1,67 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-    const modal = document.getElementById('laveraAlertModal');
+    const modalAlert = document.getElementById('laveraAlertModal');
 
-    if(modal){
+    if(modalAlert){
         setTimeout(function(){
-            modal.remove();
+            modalAlert.remove();
         }, 2200);
     }
 
-});
-
-document.addEventListener("DOMContentLoaded", function(){
-
+    /* PROFILE MODAL */
     const openBtn = document.getElementById("openProfileModal");
     const closeBtn = document.getElementById("closeProfileModal");
-    const modal = document.getElementById("profileModal");
+    const profileModal = document.getElementById("profileModal");
 
-    if(openBtn && closeBtn && modal){
-
+    if(openBtn && closeBtn && profileModal){
         openBtn.addEventListener("click", function(e){
             e.preventDefault();
-            modal.classList.add("active");
+            profileModal.classList.add("active");
         });
 
         closeBtn.addEventListener("click", function(){
-            modal.classList.remove("active");
+            profileModal.classList.remove("active");
         });
 
-        modal.addEventListener("click", function(e){
-            if(e.target === modal){
-                modal.classList.remove("active");
+        profileModal.addEventListener("click", function(e){
+            if(e.target === profileModal){
+                profileModal.classList.remove("active");
             }
         });
     }
 
-});
+    /* LOGOUT MODAL */
+    const openLogoutModal = document.getElementById("openLogoutModal");
+    const closeLogoutModal = document.getElementById("closeLogoutModal");
+    const logoutModal = document.getElementById("logoutModal");
 
-document.addEventListener("DOMContentLoaded", function(){
-
-    const openLogoutModal =
-    document.getElementById("openLogoutModal");
-
-    const closeLogoutModal =
-    document.getElementById("closeLogoutModal");
-
-    const logoutModal =
-    document.getElementById("logoutModal");
-
-    if(openLogoutModal){
-
+    if(openLogoutModal && logoutModal){
         openLogoutModal.addEventListener("click", function(e){
-
             e.preventDefault();
-
             logoutModal.classList.add("active");
-
         });
-
     }
 
-    if(closeLogoutModal){
-
+    if(closeLogoutModal && logoutModal){
         closeLogoutModal.addEventListener("click", function(){
-
             logoutModal.classList.remove("active");
-
         });
-
     }
 
     if(logoutModal){
-
         logoutModal.addEventListener("click", function(e){
-
             if(e.target === logoutModal){
-
                 logoutModal.classList.remove("active");
-
             }
-
         });
-
     }
 
-});
-
-document.addEventListener("DOMContentLoaded", function(){
-
+    /* FORGOT PASSWORD MODAL */
     const openForgot = document.getElementById("openForgotModal");
     const closeForgot = document.getElementById("closeForgotModal");
     const forgotModal = document.getElementById("forgotModal");
 
     if(openForgot && closeForgot && forgotModal){
-
         openForgot.addEventListener("click", function(e){
             e.preventDefault();
             forgotModal.classList.add("active");
@@ -109,89 +78,66 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     }
 
-});
+    /* TAMBAH PRODUK MODAL */
+    const openProdukModal = document.getElementById('openProdukModal');
+    const closeProdukModal = document.getElementById('closeProdukModal');
+    const produkModal = document.getElementById('produkModal');
 
-setTimeout(function(){
-    const modal = document.getElementById('laveraAlertModal');
-    if(modal){
-        modal.remove();
-    }
-}, 2200);
-
-const openProdukModal =
-    document.getElementById('openProdukModal');
-
-const closeProdukModal =
-    document.getElementById('closeProdukModal');
-
-const produkModal =
-    document.getElementById('produkModal');
-
-if(openProdukModal){
-
-    openProdukModal.addEventListener('click', function(e){
-
-        e.preventDefault();
-
-        produkModal.classList.add('active');
-
-    });
-
-}
-
-if(closeProdukModal){
-
-    closeProdukModal.addEventListener('click', function(){
-
-        produkModal.classList.remove('active');
-
-    });
-
-}
-
-window.addEventListener('click', function(e){
-
-    if(e.target == produkModal){
-
-        produkModal.classList.remove('active');
-
+    if(openProdukModal && produkModal){
+        openProdukModal.addEventListener('click', function(e){
+            e.preventDefault();
+            produkModal.classList.add('active');
+        });
     }
 
-});
+    if(closeProdukModal && produkModal){
+        closeProdukModal.addEventListener('click', function(){
+            produkModal.classList.remove('active');
+        });
+    }
 
-document.querySelectorAll('.has-submenu').forEach(menu => {
-    menu.addEventListener('click', function () {
+    if(produkModal){
+        window.addEventListener('click', function(e){
+            if(e.target === produkModal){
+                produkModal.classList.remove('active');
+            }
+        });
+    }
 
-        const submenu = this.nextElementSibling;
+    /* SIDEBAR SUBMENU */
+    document.querySelectorAll('.has-submenu').forEach(menu => {
+        menu.addEventListener('click', function(){
+            const submenu = this.nextElementSibling;
 
-        submenu.classList.toggle('show');
-
+            if(submenu){
+                submenu.classList.toggle('show');
+            }
+        });
     });
-});
 
-const openCustomModal = document.getElementById('openCustomModal');
-const closeCustomModal = document.getElementById('closeCustomModal');
-const customModal = document.getElementById('customModal');
+    /* CUSTOM MODAL */
+    const openCustomModal = document.getElementById('openCustomModal');
+    const closeCustomModal = document.getElementById('closeCustomModal');
+    const customModal = document.getElementById('customModal');
 
-if(openCustomModal && closeCustomModal && customModal){
-    openCustomModal.addEventListener('click', function(e){
-        e.preventDefault();
-        customModal.classList.add('active');
-    });
+    if(openCustomModal && closeCustomModal && customModal){
+        openCustomModal.addEventListener('click', function(e){
+            e.preventDefault();
+            customModal.classList.add('active');
+        });
 
-    closeCustomModal.addEventListener('click', function(){
-        customModal.classList.remove('active');
-    });
-
-    customModal.addEventListener('click', function(e){
-        if(e.target === customModal){
+        closeCustomModal.addEventListener('click', function(){
             customModal.classList.remove('active');
-        }
-    });
-}
+        });
 
-document.addEventListener("DOMContentLoaded", function(){
+        customModal.addEventListener('click', function(e){
+            if(e.target === customModal){
+                customModal.classList.remove('active');
+            }
+        });
+    }
 
+    /* DELETE MODAL */
     const deleteModal = document.getElementById("deleteModal");
     const closeDeleteModal = document.getElementById("closeDeleteModal");
     const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
@@ -200,50 +146,61 @@ document.addEventListener("DOMContentLoaded", function(){
         btn.addEventListener("click", function(e){
             e.preventDefault();
 
-            confirmDeleteBtn.href = this.dataset.url;
-            deleteModal.classList.add("active");
+            if(confirmDeleteBtn && deleteModal){
+                confirmDeleteBtn.href = this.dataset.url;
+                deleteModal.classList.add("active");
+            }
         });
     });
 
-    closeDeleteModal.addEventListener("click", function(){
-        deleteModal.classList.remove("active");
-    });
-
-    deleteModal.addEventListener("click", function(e){
-        if(e.target === deleteModal){
+    if(closeDeleteModal && deleteModal){
+        closeDeleteModal.addEventListener("click", function(){
             deleteModal.classList.remove("active");
-        }
-    });
+        });
+    }
 
-});
+    if(deleteModal){
+        deleteModal.addEventListener("click", function(e){
+            if(e.target === deleteModal){
+                deleteModal.classList.remove("active");
+            }
+        });
+    }
 
-document.addEventListener("DOMContentLoaded", function(){
+    /* EDIT CUSTOM MODAL */
     const editModal = document.getElementById("editCustomModal");
     const closeEditModal = document.getElementById("closeEditCustomModal");
+
     document.querySelectorAll(".open-edit-modal").forEach(function(btn){
         btn.addEventListener("click", function(e){
             e.preventDefault();
-            document.getElementById("edit_id_custom").value =
-                this.dataset.id;
-            document.getElementById("edit_kategori_custom").value =
-                this.dataset.kategori;
-            document.getElementById("edit_deskripsi_referensi").value =
-                this.dataset.deskripsi;
-            document.getElementById("edit_status_custom").value =
-                this.dataset.status;
-            document.getElementById("old_gambar_referensi").innerText =
-                "File lama: " + this.dataset.gambarReferensi;
-            document.getElementById("old_gambar_bahan").innerText =
-                "File lama: " + this.dataset.gambarBahan;
-            editModal.classList.add("active");
+
+            const idCustom = document.getElementById("edit_id_custom");
+            const kategori = document.getElementById("edit_kategori_custom");
+            const deskripsi = document.getElementById("edit_deskripsi_referensi");
+            const status = document.getElementById("edit_status_custom");
+            const oldRef = document.getElementById("old_gambar_referensi");
+            const oldBahan = document.getElementById("old_gambar_bahan");
+
+            if(idCustom) idCustom.value = this.dataset.id;
+            if(kategori) kategori.value = this.dataset.kategori;
+            if(deskripsi) deskripsi.value = this.dataset.deskripsi;
+            if(status) status.value = this.dataset.status;
+            if(oldRef) oldRef.innerText = "File lama: " + this.dataset.gambarReferensi;
+            if(oldBahan) oldBahan.innerText = "File lama: " + this.dataset.gambarBahan;
+
+            if(editModal){
+                editModal.classList.add("active");
+            }
         });
     });
 
-    if(closeEditModal){
+    if(closeEditModal && editModal){
         closeEditModal.addEventListener("click", function(){
             editModal.classList.remove("active");
         });
     }
+
     if(editModal){
         editModal.addEventListener("click", function(e){
             if(e.target === editModal){
@@ -252,10 +209,7 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     }
 
-});
-
-document.addEventListener("DOMContentLoaded", function(){
-
+    /* EDIT PRODUK MODAL */
     const editProdukModal = document.getElementById("editProdukModal");
     const closeEditProdukModal = document.getElementById("closeEditProdukModal");
 
@@ -263,26 +217,40 @@ document.addEventListener("DOMContentLoaded", function(){
         btn.addEventListener("click", function(e){
             e.preventDefault();
 
-            document.getElementById("edit_id_pakaian_jadi").value = this.dataset.id;
-            document.getElementById("edit_nama_pakaian").value = this.dataset.nama;
-            document.getElementById("edit_ukuran").value = this.dataset.ukuran;
-            document.getElementById("edit_harga").value = this.dataset.harga;
-            document.getElementById("edit_stok").value = this.dataset.stok;
-            document.getElementById("edit_diskon_produk").value = this.dataset.diskon;
-            document.getElementById("edit_status_produk").value = this.dataset.status;
-            document.getElementById("edit_detail_model").value = this.dataset.model;
-            document.getElementById("edit_detail_bahan").value = this.dataset.bahan;
+            const fields = {
+                edit_id_pakaian_jadi: this.dataset.id,
+                edit_nama_pakaian: this.dataset.nama,
+                edit_ukuran: this.dataset.ukuran,
+                edit_harga: this.dataset.harga,
+                edit_stok: this.dataset.stok,
+                edit_diskon_produk: this.dataset.diskon,
+                edit_status_produk: this.dataset.status,
+                edit_detail_model: this.dataset.model,
+                edit_detail_bahan: this.dataset.bahan
+            };
 
-            document.getElementById("old_foto_1").innerText = "File lama: " + (this.dataset.foto1 || "-");
-            document.getElementById("old_foto_2").innerText = "File lama: " + (this.dataset.foto2 || "-");
-            document.getElementById("old_foto_3").innerText = "File lama: " + (this.dataset.foto3 || "-");
-            document.getElementById("old_foto_4").innerText = "File lama: " + (this.dataset.foto4 || "-");
+            Object.keys(fields).forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.value = fields[id];
+            });
 
-            editProdukModal.classList.add("active");
+            const oldFoto1 = document.getElementById("old_foto_1");
+            const oldFoto2 = document.getElementById("old_foto_2");
+            const oldFoto3 = document.getElementById("old_foto_3");
+            const oldFoto4 = document.getElementById("old_foto_4");
+
+            if(oldFoto1) oldFoto1.innerText = "File lama: " + (this.dataset.foto1 || "-");
+            if(oldFoto2) oldFoto2.innerText = "File lama: " + (this.dataset.foto2 || "-");
+            if(oldFoto3) oldFoto3.innerText = "File lama: " + (this.dataset.foto3 || "-");
+            if(oldFoto4) oldFoto4.innerText = "File lama: " + (this.dataset.foto4 || "-");
+
+            if(editProdukModal){
+                editProdukModal.classList.add("active");
+            }
         });
     });
 
-    if(closeEditProdukModal){
+    if(closeEditProdukModal && editProdukModal){
         closeEditProdukModal.addEventListener("click", function(){
             editProdukModal.classList.remove("active");
         });
@@ -296,112 +264,60 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     }
 
-});
-
-document.addEventListener('DOMContentLoaded', function(){
-
-    const searchInput =
-        document.getElementById('searchProduk');
-
-    const statusFilter =
-        document.getElementById('filterStatus');
-
-    const rows =
-        document.querySelectorAll('.produk-row');
+    /* FILTER PRODUK */
+    const searchInput = document.getElementById('searchProduk');
+    const statusFilter = document.getElementById('filterStatus');
+    const produkRows = document.querySelectorAll('.produk-row');
 
     function filterProduk(){
+        const keyword = searchInput.value.toLowerCase();
+        const status = statusFilter.value.toLowerCase();
 
-        const keyword =
-            searchInput.value.toLowerCase();
+        produkRows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            const rowStatus = row.dataset.status.toLowerCase();
 
-        const status =
-            statusFilter.value.toLowerCase();
+            const cocokKeyword = text.includes(keyword);
+            const cocokStatus = status === '' || rowStatus === status;
 
-        rows.forEach(row => {
-
-            const text =
-                row.textContent.toLowerCase();
-
-            const rowStatus =
-                row.dataset.status.toLowerCase();
-
-            const cocokKeyword =
-                text.includes(keyword);
-
-            const cocokStatus =
-                status === '' ||
-                rowStatus === status;
-
-            if(cocokKeyword && cocokStatus){
-
-                row.style.display = '';
-
-            }else{
-
-                row.style.display = 'none';
-
-            }
-
+            row.style.display = cocokKeyword && cocokStatus ? '' : 'none';
         });
-
     }
 
-    searchInput.addEventListener(
-        'keyup',
-        filterProduk
-    );
+    if(searchInput && statusFilter){
+        searchInput.addEventListener('keyup', filterProduk);
+        statusFilter.addEventListener('change', filterProduk);
+    }
 
-    statusFilter.addEventListener(
-        'change',
-        filterProduk
-    );
+    /* FILTER CUSTOM */
+    const searchCustom = document.getElementById('searchCustom');
+    const filterCustomStatus = document.getElementById('filterCustomStatus');
+    const customRows = document.querySelectorAll('.produk-row');
 
-});
-
-document.addEventListener('DOMContentLoaded', function(){
-
-    const searchInput =
-        document.getElementById('searchCustom');
-    const statusFilter =
-        document.getElementById('filterCustomStatus');
-    const rows =
-        document.querySelectorAll('.produk-row');
     function filterCustom(){
-        const keyword =
-            searchInput.value.toLowerCase();
-        const status =
-            statusFilter.value.toLowerCase();
-        rows.forEach(row => {
-            const text =
-                row.textContent.toLowerCase();
-            const rowStatus =
-                row.dataset.status.toLowerCase();
-            const cocokKeyword =
-                text.includes(keyword);
-            const cocokStatus =
-                status === '' ||
-                rowStatus === status;
-            if(cocokKeyword && cocokStatus){
-                row.style.display = '';
-            }else{
-                row.style.display = 'none';
-            }
+        const keyword = searchCustom.value.toLowerCase();
+        const status = filterCustomStatus.value.toLowerCase();
+
+        customRows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            const rowStatus = row.dataset.status.toLowerCase();
+
+            const cocokKeyword = text.includes(keyword);
+            const cocokStatus = status === '' || rowStatus === status;
+
+            row.style.display = cocokKeyword && cocokStatus ? '' : 'none';
         });
     }
-    searchInput.addEventListener(
-        'keyup',
-        filterCustom
-    );
-    statusFilter.addEventListener(
-        'change',
-        filterCustom
-    );
-}
-);
 
-document.addEventListener("DOMContentLoaded", function(){
+    if(searchCustom && filterCustomStatus){
+        searchCustom.addEventListener('keyup', filterCustom);
+        filterCustomStatus.addEventListener('change', filterCustom);
+    }
+
+    /* HISTORY DROPDOWN */
     const toggle = document.getElementById("historyToggle");
     const dropdown = document.getElementById("historyDropdown");
+    const closeHistoryDropdown = document.getElementById('closeHistoryDropdown');
 
     if(toggle && dropdown){
         toggle.addEventListener("click", function(e){
@@ -416,72 +332,46 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     }
 
+    if(closeHistoryDropdown && dropdown){
+        closeHistoryDropdown.addEventListener('click', function(){
+            dropdown.classList.remove('active');
+        });
+    }
+
     document.querySelectorAll(".history-mini-tab").forEach(function(tab){
         tab.addEventListener("click", function(){
             document.querySelectorAll(".history-mini-tab").forEach(t => t.classList.remove("active"));
             document.querySelectorAll(".history-mini-content").forEach(c => c.classList.remove("active"));
 
             this.classList.add("active");
-            document.getElementById(this.dataset.target).classList.add("active");
-        });
-    });
-});
 
-const closeHistoryDropdown =
-    document.getElementById('closeHistoryDropdown');
-
-if(closeHistoryDropdown){
-    closeHistoryDropdown.addEventListener('click', function(){
-        historyDropdown.classList.remove('active');
-    });
-}
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const buttons = document.querySelectorAll(".history-filter-btn");
-    const cards = document.querySelectorAll(".history-order-card");
-
-    buttons.forEach(btn => {
-        btn.addEventListener("click", function(){
-
-            buttons.forEach(b => b.classList.remove("active"));
-            this.classList.add("active");
-
-            const filter = this.dataset.filter;
-
-            cards.forEach(card => {
-                if(filter === "all" || card.dataset.type === filter){
-                    card.style.display = "flex";
-                }else{
-                    card.style.display = "none";
-                }
-            });
-
+            const target = document.getElementById(this.dataset.target);
+            if(target){
+                target.classList.add("active");
+            }
         });
     });
 
-});
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const buttons = document.querySelectorAll(".history-filter-btn");
-    const cards = document.querySelectorAll(".history-order-card");
+    /* RIWAYAT FILTER */
+    const historyButtons = document.querySelectorAll(".history-filter-btn");
+    const historyCards = document.querySelectorAll(".history-order-card");
 
     const emptyAll = document.getElementById("emptyAll");
     const emptyReady = document.getElementById("emptyReady");
     const emptyCustom = document.getElementById("emptyCustom");
 
     function hideAllEmpty(){
-        emptyAll.classList.remove("show");
-        emptyReady.classList.remove("show");
-        emptyCustom.classList.remove("show");
+        if(emptyAll) emptyAll.classList.remove("show");
+        if(emptyReady) emptyReady.classList.remove("show");
+        if(emptyCustom) emptyCustom.classList.remove("show");
     }
 
     function filterHistory(filter){
         let visibleCount = 0;
 
-        cards.forEach(card => {
-            const match = filter === "all" || card.dataset.type === filter;
+        historyCards.forEach(card => {
+            const type = card.dataset.type;
+            const match = filter === "all" || type === filter;
 
             if(match){
                 card.style.display = "flex";
@@ -494,99 +384,150 @@ document.addEventListener("DOMContentLoaded", function(){
         hideAllEmpty();
 
         if(visibleCount === 0){
-            if(filter === "all"){
+            if(filter === "all" && emptyAll){
                 emptyAll.classList.add("show");
-            }else if(filter === "pakaian_jadi"){
+            }
+
+            if(filter === "pakaian_jadi" && emptyReady){
                 emptyReady.classList.add("show");
-            }else if(filter === "custom"){
+            }
+
+            if(filter === "custom" && emptyCustom){
                 emptyCustom.classList.add("show");
             }
         }
     }
 
-    buttons.forEach(btn => {
-        btn.addEventListener("click", function(){
-            buttons.forEach(b => b.classList.remove("active"));
-            this.classList.add("active");
+    if(historyButtons.length > 0){
+        historyButtons.forEach(btn => {
+            btn.addEventListener("click", function(){
+                historyButtons.forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
 
-            filterHistory(this.dataset.filter);
+                filterHistory(this.dataset.filter);
+            });
         });
-    });
 
-    filterHistory("all");
-});
-
-function filterHistory(filter){
-
-    let visibleCount = 0;
-
-    cards.forEach(card => {
-
-        const type = card.dataset.type;
-
-        if(filter === "all"){
-
-            card.style.display = "flex";
-            visibleCount++;
-
-        }else if(type === filter){
-
-            card.style.display = "flex";
-            visibleCount++;
-
-        }else{
-
-            card.style.display = "none";
-
-        }
-
-    });
-
-    hideAllEmpty();
-
-    if(visibleCount === 0){
-
-        if(filter === "all"){
-            emptyAll.classList.add("show");
-        }
-
-        if(filter === "pakaian_jadi"){
-            emptyReady.classList.add("show");
-        }
-
-        if(filter === "custom"){
-            emptyCustom.classList.add("show");
-        }
+        filterHistory("all");
     }
-}
 
-document.addEventListener("DOMContentLoaded", function(){
-    const modal = document.getElementById("statusPesananModal");
-    const closeModal = document.getElementById("closeStatusPesananModal");
+    /* MODAL STATUS PESANAN */
+    const statusPesananModal = document.getElementById("statusPesananModal");
+    const closeStatusPesananModal = document.getElementById("closeStatusPesananModal");
 
     document.querySelectorAll(".open-status-modal").forEach(function(btn){
         btn.addEventListener("click", function(e){
             e.preventDefault();
 
-            document.getElementById("edit_id_pesanan").value = this.dataset.id;
-            document.getElementById("edit_kode_pesanan").value = this.dataset.kode;
-            document.getElementById("edit_status_pesanan").value = this.dataset.status;
+            const editId = document.getElementById("edit_id_pesanan");
+            const editKode = document.getElementById("edit_kode_pesanan");
+            const editStatus = document.getElementById("edit_status_pesanan");
 
-            modal.classList.add("active");
+            if(editId) editId.value = this.dataset.id;
+            if(editKode) editKode.value = this.dataset.kode;
+            if(editStatus) editStatus.value = this.dataset.status;
+
+            if(statusPesananModal){
+                statusPesananModal.classList.add("active");
+            }
         });
     });
 
-    if(closeModal){
-        closeModal.addEventListener("click", function(){
-            modal.classList.remove("active");
+    if(closeStatusPesananModal && statusPesananModal){
+        closeStatusPesananModal.addEventListener("click", function(){
+            statusPesananModal.classList.remove("active");
         });
     }
 
-    if(modal){
-        modal.addEventListener("click", function(e){
-            if(e.target === modal){
-                modal.classList.remove("active");
+    if(statusPesananModal){
+        statusPesananModal.addEventListener("click", function(e){
+            if(e.target === statusPesananModal){
+                statusPesananModal.classList.remove("active");
             }
         });
     }
+
+    /* FILTER PESANAN ADMIN */
+    const searchPesanan = document.getElementById('searchPesanan');
+    const filterStatusPesanan = document.getElementById('filterStatusPesanan');
+    const filterBulan = document.getElementById('filterBulan');
+
+    function filterPesanan(){
+        const keyword = searchPesanan ? searchPesanan.value.toLowerCase() : '';
+        const status = filterStatusPesanan ? filterStatusPesanan.value.toLowerCase() : '';
+        const bulan = filterBulan ? filterBulan.value : '';
+
+        document.querySelectorAll('.pesanan-row').forEach(row => {
+            const text = row.innerText.toLowerCase();
+            const rowStatus = row.dataset.status;
+            const rowBulan = row.dataset.bulan;
+
+            const cocokKeyword = text.includes(keyword);
+            const cocokStatus = status === '' || rowStatus === status;
+            const cocokBulan = bulan === '' || rowBulan === bulan;
+
+            row.style.display =
+                cocokKeyword && cocokStatus && cocokBulan
+                    ? ''
+                    : 'none';
+        });
+    }
+
+    if(searchPesanan){
+        searchPesanan.addEventListener('keyup', filterPesanan);
+    }
+
+    if(filterStatusPesanan){
+        filterStatusPesanan.addEventListener('change', filterPesanan);
+    }
+
+    if(filterBulan){
+        filterBulan.addEventListener('change', filterPesanan);
+    }
+
+});
+
+$(document).ready(function(){
+
+    $('.lavera-datatable').each(function(){
+
+        const table = $(this);
+
+        if($.fn.DataTable.isDataTable(this)){
+            table.DataTable().destroy();
+        }
+        const totalData = table.find('tbody tr').length;
+        table.DataTable({
+            pageLength: 5,
+            lengthChange: false,
+            ordering: false,
+            searching: false,
+            info: true,
+
+            drawCallback: function(){
+                const current = table.find('tbody tr:visible').length;
+
+                table
+                    .closest('.dataTables_wrapper')
+                    .find('.dataTables_info')
+                    .html(
+                        'Menampilkan ' +
+                        current +
+                        ' data dari ' +
+                        totalData +
+                        ' data'
+                    );
+            },
+
+            language: {
+                infoEmpty: 'Tidak ada data',
+                zeroRecords: 'Data tidak ditemukan',
+                paginate: {
+                    previous: '‹',
+                    next: '›'
+                }
+            }
+        });
+
+    });
 });
