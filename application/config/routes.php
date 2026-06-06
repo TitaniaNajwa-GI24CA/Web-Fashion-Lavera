@@ -70,3 +70,5 @@ $route['riwayat-pesanan'] = 'pesanan/riwayat';
 $route['pesanan/detail/(:num)'] = 'pesanan/detail/$1';
 $route['admin/pesanan-pakaian-jadi'] = 'admin/pesanan_pakaian_jadi';
 $route['admin/update-status-pesanan-pakaian-jadi'] = 'admin/pesanan_pakaian_jadi/update_status';
+$route['admin/detail-pesanan/(:num)'] = 'admin/pesanan_pakaian_jadi/detail/$1';
+$route['pesanan/konfirmasi-pembayaran'] = 'pesanan/konfirmasi_pembayaran';
