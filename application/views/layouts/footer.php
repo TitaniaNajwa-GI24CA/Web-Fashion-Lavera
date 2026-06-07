@@ -31,6 +31,30 @@
         once: true,
         offset: 120
     });
+
+    const notifBtn =
+        document.getElementById("notificationToggle");
+
+    const notifDropdown =
+        document.getElementById("notificationDropdown");
+
+    if(notifBtn){
+
+        notifBtn.addEventListener("click", function(e){
+
+            e.stopPropagation();
+
+            notifDropdown.classList.toggle("active");
+
+        });
+
+        document.addEventListener("click", function(){
+
+            notifDropdown.classList.remove("active");
+
+        });
+
+    }
 </script>
 <script src="<?= base_url('assets/js/pop-up.js'); ?>"></script>
 

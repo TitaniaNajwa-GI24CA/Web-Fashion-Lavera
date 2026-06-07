@@ -11,9 +11,8 @@
 <?php endif; ?>
 
 <div class="dashboard-cards">
-    
     <div class="dashboard-card">
-        <div class="card-icon peach">
+        <div class="card-icon pink">
             <i class="fa-solid fa-clock"></i>
         </div>
 
@@ -24,27 +23,27 @@
     </div>
 
     <div class="dashboard-card">
-        <div class="card-icon cream">
+        <div class="card-icon peach">
             <i class="fa-solid fa-circle-check"></i>
         </div>
 
         <div>
-            <h5>Pembayaran Berhasil</h5>
-            <h2><?= $pembayaran_berhasil; ?></h2>
+            <h5>Pembayaran Hari Ini</h5>
+            <h2><?= $pembayaran_hari_ini; ?></h2>
         </div>
     </div>
 
     <div class="dashboard-card">
-        <div class="card-icon pink">
+        <div class="card-icon cream">
             <i class="fa-solid fa-wallet"></i>
         </div>
-
         <div>
-            <h5>Pendapatan</h5>
-            <h2>Rp <?= number_format($pendapatan,0,',','.'); ?></h2>
+            <h5>Pendapatan Hari Ini</h5>
+            <h2>
+                Rp <?= number_format($pendapatan_hari_ini,0,',','.'); ?>
+            </h2>
         </div>
     </div>
-
 </div>
 
 <div class="dashboard-grid">
@@ -63,7 +62,7 @@
         <div class="table-header">
             <div>
                 <h3>Grafik Pembayaran</h3>
-                <p>Ringkasan pembayaran berhasil Lavéra</p>
+                <p>Total pembayaran berhasil dalam beberapa hari terakhir</p>
             </div>
         </div>
 

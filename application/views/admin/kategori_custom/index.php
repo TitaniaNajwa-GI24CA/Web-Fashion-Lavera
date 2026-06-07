@@ -6,7 +6,6 @@
 </div>
 
 <div class="produk-card">
-
     <div class="produk-topbar">
         <div class="search-product">
             <i class="fa-solid fa-magnifying-glass"></i>

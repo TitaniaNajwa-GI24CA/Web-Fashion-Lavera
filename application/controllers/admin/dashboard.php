@@ -22,7 +22,7 @@ class dashboard extends CI_Controller {
         $data['total_pesanan']      = $this->dashboard_model->total_pesanan();
         $data['request_custom']     = $this->dashboard_model->total_request_custom();
         $data['pendapatan']         = $this->dashboard_model->total_pendapatan();
-        $data['notifikasi']         = $this->dashboard_model->notifikasi_terbaru();
+        $data['notifikasi']         = $this->dashboard_model->get_notifikasi_admin();
         $data['grafik_penjualan']   = $this->dashboard_model->grafik_penjualan();
 
         $this->load->view('admin/layouts/header');

@@ -29,7 +29,7 @@
 
             </div>
 
-            <a href="#">
+            <a href="<?= base_url('admin/request-custom'); ?>">
                 <i class="fa-solid fa-scissors"></i>
                 Request Custom
             </a>

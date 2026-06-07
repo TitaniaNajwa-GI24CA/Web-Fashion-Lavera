@@ -53,9 +53,9 @@
                         </div>
 
                         <div class="history-header-actions">
-                            <a href="<?= base_url('riwayat-pesanan'); ?>" class="history-expand-link">
+                            <button href="<?= base_url('riwayat-pesanan'); ?>" class="history-expand-link">
                                 <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
-                            </a>
+                            </button>
 
                             <button type="button" id="closeHistoryDropdown" class="history-close-btn">
                                 <i class="fa-solid fa-xmark"></i>
@@ -114,9 +114,58 @@
                 </div>
             </div>
 
-            <div class="cart-box">
-                <i class="fa-regular fa-bell"></i>
-                <span class="cart-count">2</span>
+            <div class="notification-box">
+                <div class="cart-box" id="notificationToggle">
+                    <i class="fa-regular fa-bell"></i>
+                    <?php if(($jumlah_notifikasi ?? 0) > 0): ?>
+                        <span class="cart-count">
+                            <?= $jumlah_notifikasi; ?>
+                        </span>
+                    <?php endif; ?>
+                </div>
+
+                <div class="notification-dropdown" id="notificationDropdown">
+                    <div class="notification-header">
+                        <h4>Notifikasi</h4>
+                        <a href="<?= base_url('notifikasi'); ?>">
+                            Lihat Semua
+                        </a>
+
+                        <button type="button" id="closeHistoryDropdown" class="history-close-btn">
+                                <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <?php if(!empty($notifikasi)): ?>
+                        <?php foreach($notifikasi as $n): ?>
+                            <a href="#"
+                            class="notification-item">
+                                <div class="notif-dot <?= $n->status_baca == 'belum_dibaca' ? 'active' : ''; ?>"></div>
+                                <div>
+                                    <h5>
+                                        <?= $n->judul_notifikasi; ?>
+                                    </h5>
+                                    <p>
+                                        <?= $n->pesan_notifikasi; ?>
+                                    </p>
+                                </div>
+
+                            </a>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+                        <div class="notification-empty">
+
+                            <i class="fa-regular fa-bell-slash"></i>
+
+                            <p>
+                                Belum ada notifikasi.
+                            </p>
+
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
 
             <div class="user-box profile-box">

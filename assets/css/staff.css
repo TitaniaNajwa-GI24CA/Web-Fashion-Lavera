@@ -1648,3 +1648,92 @@ body{
     justify-content: space-between;
     align-items: center;
 }
+
+.kasir-mini-cards{
+    margin-top: 24px;
+    margin-bottom: 28px;
+}
+
+.payment-proof-img{
+    width: 62px;
+    height: 78px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 14px;
+    border: 1px solid #f2d5dc;
+}
+
+.payment-proof-empty{
+    width: 62px;
+    height: 78px;
+    border-radius: 14px;
+    background: #fff0f4;
+    color: #db5f6f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payment-status{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 135px;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.payment-status.menunggu_verifikasi{
+    background: #e8f2ff;
+    color: #3f7ee8;
+}
+
+.payment-status.berhasil{
+    background: #e5fff1;
+    color: #14995d;
+}
+
+.payment-status.ditolak{
+    background: #ffe6ea;
+    color: #d9415e;
+}
+
+.request-history-badge{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 92px;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #fff0f5;
+    color: #d96f94;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.request-discount-info{
+    display: block;
+    margin-top: 7px;
+    color: #d96f94;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.order-status.disetujui{
+    background: #e5fff1;
+    color: #14995d;
+}
+
+.order-status.ditolak{
+    background: #ffe6ea;
+    color: #d9415e;
+}
+
+.order-status.menunggu{
+    background: #e8f2ff;
+    color: #3f7ee8;
+}

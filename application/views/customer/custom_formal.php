@@ -2,6 +2,7 @@
 
 <?php
 $custom = [
+    'id_custom' => 2,
     'label' => 'Custom Outfit',
     'title' => 'Custom Formal Wear',
     'desc' => 'Desain pakaian formal sesuai kebutuhan kantor, perusahaan, maupun acara profesional dengan sentuhan modern.',

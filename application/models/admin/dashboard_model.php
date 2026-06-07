@@ -48,12 +48,15 @@ class dashboard_model extends CI_Model {
         return $this->db->get()->result();
     }
 
-    public function notifikasi_terbaru()
+    public function get_notifikasi_admin()
     {
-        $this->db->order_by('created_at', 'DESC');
-        $this->db->limit(5);
-
-        return $this->db->get('tbl_notifikasi')->result();
+        return $this->db
+            ->where('target_role', 'admin')
+            ->where('status_baca', 'belum_dibaca')
+            ->order_by('created_at', 'DESC')
+            ->limit(5)
+            ->get('tbl_notifikasi')
+            ->result();
     }
 
     public function get_admin_profile($id_user)

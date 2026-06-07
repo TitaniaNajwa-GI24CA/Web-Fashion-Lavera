@@ -5,7 +5,7 @@
             <h1><?= $custom['title']; ?></h1>
             <span><?= $custom['desc']; ?></span>
 
-            <a href="#" class="hero-custom-btn">
+            <a href="<?= base_url('request-custom/form/'.$custom['id_custom']); ?>" class="hero-custom-btn">
                 Custom This Style
             </a>
 

@@ -2,6 +2,7 @@
 
 <?php
 $custom = [
+    'id_custom' => 4,
     'label' => 'Custom Outfit',
     'title' => 'Custom Casual Wear',
     'desc' => 'Buat outfit casual custom yang nyaman, stylish, dan cocok untuk komunitas, kampus, brand, maupun kebutuhan seragam santai.',

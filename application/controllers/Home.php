@@ -39,6 +39,31 @@ class Home extends CI_Controller {
 
                 $data['riwayat_custom'] =
                     $this->Pesanan_model->get_riwayat_custom($id_user);
+                    
+                $data['notifikasi'] = [];
+                $data['jumlah_notifikasi'] = 0;
+
+                if(
+                    $this->session->userdata('login') &&
+                    $this->session->userdata('role') == 'customer' &&
+                    !empty($data['customer'])
+                ){
+                    $id_customer = $data['customer']->id_customer;
+
+                    $data['notifikasi'] = $this->db
+                        ->where('id_customer', $id_customer)
+                        ->where('target_role', 'customer')
+                        ->order_by('id_notifikasi', 'DESC')
+                        ->limit(5)
+                        ->get('tbl_notifikasi')
+                        ->result();
+
+                    $data['jumlah_notifikasi'] = $this->db
+                        ->where('id_customer', $id_customer)
+                        ->where('target_role', 'customer')
+                        ->where('status_baca', 'belum_dibaca')
+                        ->count_all_results('tbl_notifikasi');
+                }
             }
         $this->load->view('customer/home', $data);
     }

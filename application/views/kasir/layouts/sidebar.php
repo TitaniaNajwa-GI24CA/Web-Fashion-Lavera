@@ -1,7 +1,5 @@
 <div class="admin-sidebar">
-
     <div>
-
         <div class="sidebar-logo">
             <img src="<?= base_url('assets/img/logo-lavera.png'); ?>">
         </div>
@@ -13,67 +11,59 @@
                 Dashboard
             </a>
 
-            <!-- MENU PEMBAYARAN -->
             <a href="javascript:void(0)" class="has-submenu">
                 <i class="fa-solid fa-money-check-dollar"></i>
                 Pembayaran
             </a>
 
             <div class="submenu">
-
-                <a href="<?= base_url('kasir/verifikasi-pembayaran'); ?>">
-                    <i class="fa-solid fa-clock"></i>
-                    Pembayaran DP
-                </a>
-
-                <a href="<?= base_url('kasir/pembayaran-berhasil'); ?>">
-                    <i class="fa-solid fa-circle-check"></i>
-                    Pembayaran Full
-                </a>
-            </div>
-
-            <!-- MENU PESANAN -->
-            <a href="javascript:void(0)" class="has-submenu">
-                <i class="fa-solid fa-bag-shopping"></i>
-                Pesanan
-            </a>
-
-            <div class="submenu">
-
-                <a href="<?= base_url('kasir/pesanan-pakaian-jadi'); ?>">
+                <a href="<?= base_url('kasir/pembayaran-pakaian-jadi'); ?>">
                     <i class="fa-solid fa-shirt"></i>
                     Pakaian Jadi
                 </a>
 
-                <a href="<?= base_url('kasir/pesanan-custom'); ?>">
-                    <i class="fa-solid fa-scissors"></i>
-                    Pakaian Custom
+                <a href="<?= base_url('kasir/pembayaran-dp-custom'); ?>">
+                    <i class="fa-solid fa-coins"></i>
+                    DP Custom
                 </a>
 
+                <a href="<?= base_url('kasir/pelunasan-custom'); ?>">
+                    <i class="fa-solid fa-wallet"></i>
+                    Pelunasan Custom
+                </a>
+
+                <a href="<?= base_url('kasir/bukti-pembayaran'); ?>">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    Bukti Pembayaran
+                </a>
             </div>
 
-            <!-- MENU LAPORAN -->
             <a href="javascript:void(0)" class="has-submenu">
                 <i class="fa-solid fa-chart-column"></i>
                 Laporan
             </a>
+
             <div class="submenu">
-                <a href="<?= base_url('kasir/laporan-pembayaran'); ?>">
+                <a href="<?= base_url('kasir/laporan-pembayaran-pakaian-jadi'); ?>">
                     <i class="fa-solid fa-file-lines"></i>
-                    Laporan Pembayaran
+                    Pakaian Jadi
                 </a>
 
-                <a href="<?= base_url('kasir/laporan-pendapatan'); ?>">
-                    <i class="fa-solid fa-wallet"></i>
-                    Laporan Pendapatan
+                <a href="<?= base_url('kasir/laporan-pembayaran-custom'); ?>">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    Pakaian Custom
                 </a>
             </div>
-        </div>
 
+            <a href="<?= base_url('kasir/notifikasi'); ?>">
+                <i class="fa-solid fa-bell"></i>
+                Notifikasi
+            </a>
+
+        </div>
     </div>
 
     <div class="sidebar-bottom">
         <img src="<?= base_url('assets/img/admin-sidebar.png'); ?>">
     </div>
-
 </div>

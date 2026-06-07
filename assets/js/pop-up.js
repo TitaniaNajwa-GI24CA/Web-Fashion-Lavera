@@ -531,3 +531,148 @@ $(document).ready(function(){
 
     });
 });
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const cashModal = document.getElementById("cashPaymentModal");
+    const openCash = document.getElementById("openCashPaymentModal");
+    const closeCash = document.getElementById("closeCashPaymentModal");
+
+    if(openCash && cashModal){
+        openCash.addEventListener("click", function(e){
+            e.preventDefault();
+            cashModal.classList.add("active");
+        });
+    }
+
+    if(closeCash && cashModal){
+        closeCash.addEventListener("click", function(){
+            cashModal.classList.remove("active");
+        });
+    }
+
+    const statusModal = document.getElementById("paymentStatusModal");
+    const closeStatus = document.getElementById("closePaymentStatusModal");
+
+    document.querySelectorAll(".open-payment-status-modal").forEach(function(btn){
+        btn.addEventListener("click", function(e){
+            e.preventDefault();
+
+            document.getElementById("edit_id_pembayaran").value = this.dataset.id;
+            document.getElementById("edit_kode_pembayaran").value = this.dataset.kode;
+            document.getElementById("edit_status_pembayaran").value = this.dataset.status;
+
+            statusModal.classList.add("active");
+        });
+    });
+
+    if(closeStatus && statusModal){
+        closeStatus.addEventListener("click", function(){
+            statusModal.classList.remove("active");
+        });
+    }
+
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const editRequestModal = document.getElementById("editRequestModal");
+    const closeEditRequestModal = document.getElementById("closeEditRequestModal");
+
+    document.querySelectorAll(".open-edit-request-modal").forEach(function(btn){
+        btn.addEventListener("click", function(e){
+            e.preventDefault();
+
+            const totalRequest = parseInt(this.dataset.totalrequest || 0);
+
+            document.getElementById("edit_id_request").value = this.dataset.id;
+            document.getElementById("edit_kode_request").value = this.dataset.kode;
+            document.getElementById("edit_customer_request").value = this.dataset.customer;
+            document.getElementById("edit_kategori_request").value = this.dataset.kategori;
+            document.getElementById("edit_estimasi_harga").value = this.dataset.estimasi;
+                let estimasi = parseInt(this.dataset.estimasi || 0);
+            document.getElementById("edit_uang_muka").value =
+                Math.round(estimasi * 0.5);
+            document.getElementById("edit_status_request").value = this.dataset.status;
+            const diskonInput = document.getElementById("edit_diskon_custom");
+            const discountInfo = document.getElementById("discountInfoText");
+
+            if(totalRequest >= 5){
+                diskonInput.value = this.dataset.diskon > 0 ? this.dataset.diskon : 5;
+                discountInfo.innerText = "Customer sudah melakukan request custom " + totalRequest + " kali. Diskon dapat diberikan.";
+            }else{
+                diskonInput.value = this.dataset.diskon || 0;
+                discountInfo.innerText = "Riwayat request customer: " + totalRequest + " kali. Diskon default 0%.";
+            }
+
+            editRequestModal.classList.add("active");
+        });
+    });
+
+    if(closeEditRequestModal && editRequestModal){
+        closeEditRequestModal.addEventListener("click", function(){
+            editRequestModal.classList.remove("active");
+        });
+    }
+
+    if(editRequestModal){
+        editRequestModal.addEventListener("click", function(e){
+            if(e.target === editRequestModal){
+                editRequestModal.classList.remove("active");
+            }
+        });
+    }
+
+});
+
+const estimasiInput =
+    document.getElementById("edit_estimasi_harga");
+
+const uangMukaInput =
+    document.getElementById("edit_uang_muka");
+
+if(estimasiInput && uangMukaInput){
+
+    estimasiInput.addEventListener("input", function(){
+
+        let estimasi = parseInt(this.value) || 0;
+
+        uangMukaInput.value =
+            Math.round(estimasi * 0.5);
+
+    });
+
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const customModal = document.getElementById("statusPesananCustomModal");
+    const closeCustomModal = document.getElementById("closeStatusPesananCustomModal");
+
+    document.querySelectorAll(".open-status-custom-modal").forEach(function(btn){
+        btn.addEventListener("click", function(e){
+            e.preventDefault();
+
+            document.getElementById("edit_id_pesanan_custom").value = this.dataset.id;
+            document.getElementById("edit_kode_pesanan_custom").value = this.dataset.kode;
+            document.getElementById("edit_status_pesanan_custom").value = this.dataset.status;
+
+            customModal.classList.add("active");
+        });
+    });
+
+    if(closeCustomModal && customModal){
+        closeCustomModal.addEventListener("click", function(){
+            customModal.classList.remove("active");
+        });
+    }
+
+    if(customModal){
+        customModal.addEventListener("click", function(e){
+            if(e.target === customModal){
+                customModal.classList.remove("active");
+            }
+        });
+    }
+
+});

@@ -2,6 +2,7 @@
 
 <?php
 $custom = [
+    'id_custom' => 3,
     'label' => 'Custom Outfit',
     'title' => 'Custom Occasion Wear',
     'desc' =>'Wujudkan outfit spesial dengan desain elegan, detail eksklusif, dan sentuhan personal untuk setiap momen berharga.',

@@ -2,6 +2,7 @@
 
 <?php
 $custom = [
+    'id_custom' => 1,
     'label' => 'Custom Outfit',
     'title' => 'Custom Family Uniform',
     'desc' => 'Wujudkan pakaian keluarga yang serasi, sopan, nyaman, dan elegan untuk berbagai momen spesial.',

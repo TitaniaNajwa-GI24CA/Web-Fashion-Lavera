@@ -123,28 +123,38 @@ class pesanan extends CI_Controller {
         }
 
         $id_user = $this->session->userdata('id_user');
+        $cek = $this->pesanan_model->get_detail_riwayat($id_pesanan, $id_user);
 
-        $pesanan = $this->pesanan_model->get_detail_riwayat($id_pesanan, $id_user);
-
-        if(!$pesanan){
+        if(!$cek){
             show_404();
         }
 
-        $data['pesanan'] = $pesanan;
-        $data['detail_produk'] = $this->pesanan_model->get_detail_produk_pesanan($id_pesanan);
+        if($cek->tipe_pesanan == 'custom'){
 
-        $this->load->view('customer/riwayat_detail', $data);
+            $data['pesanan'] =
+                $this->pesanan_model->get_detail_custom($id_pesanan, $id_user);
+
+            $this->load->view('customer/riwayat_detail_custom', $data);
+
+        }else{
+
+            $data['pesanan'] = $cek;
+
+            $data['detail_produk'] =
+                $this->pesanan_model->get_detail_produk_pesanan($id_pesanan);
+
+            $this->load->view('customer/riwayat_detail', $data);
+        }
     }
 
     public function konfirmasi_pembayaran()
     {
         if($this->session->userdata('login') != TRUE || $this->session->userdata('role') != 'customer'){
-            redirect('login');
+            redirect('login_customer');
         }
 
         $id_pesanan = $this->input->post('id_pesanan', true);
         $id_user = $this->session->userdata('id_user');
-
         $pesanan = $this->pesanan_model->get_detail_riwayat($id_pesanan, $id_user);
 
         if(!$pesanan){
@@ -192,7 +202,8 @@ class pesanan extends CI_Controller {
             'id_pesanan'        => $id_pesanan,
             'id_pembayaran'     => $pesanan->id_pembayaran,
             'id_request'        => NULL,
-            'jenis_pembayaran'  => 'pembayaran berhasil',
+            'target_role'       => 'kasir',
+            'jenis_notifikasi'  => 'Bukti Pembayaran',
             'judul_notifikasi'  => 'Konfirmasi Pembayaran Baru',
             'pesan_notifikasi'  => $pesanan->nama_user . ' telah mengupload bukti pembayaran untuk pesanan ' . $pesanan->kode_pesanan . '.',
             'status_baca'       => 'belum_dibaca'
@@ -205,7 +216,7 @@ class pesanan extends CI_Controller {
     public function download_invoice($id_pesanan)
     {
         $data['pesanan'] =
-            $this->Pesanan_model
+            $this->pesanan_model
                 ->get_detail_pesanan($id_pesanan);
 
         $this->load->view(
