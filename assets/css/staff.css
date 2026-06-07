@@ -1737,3 +1737,23 @@ body{
     background: #e8f2ff;
     color: #3f7ee8;
 }
+
+.payment-proof-img{
+    width: 62px;
+    height: 78px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 14px;
+    border: 1px solid #f2d5dc;
+}
+
+.payment-proof-empty{
+    width: 62px;
+    height: 78px;
+    border-radius: 14px;
+    background: #fff0f4;
+    color: #db5f6f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

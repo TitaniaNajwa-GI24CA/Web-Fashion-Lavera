@@ -62,57 +62,103 @@ class pembayaran_pakaian_jadi extends CI_Controller {
 
     public function update_status()
     {
-        $id_pembayaran = $this->input->post('id_pembayaran', true);
-        $status_pembayaran = $this->input->post('status_pembayaran', true);
-        $pembayaran_lama =
-            $this->Pembayaran_pakaian_jadi_model
-                ->get_by_id($id_pembayaran);
+    $id_pembayaran = $this->input->post('id_pembayaran', true);
+    $status_pembayaran = $this->input->post('status_pembayaran', true);
 
-        if(!$pembayaran_lama){
-            show_404();
-        }
-        
-        $this->Pembayaran_pakaian_jadi_model->update(
-            $id_pembayaran,
+    $pembayaran_lama =
+        $this->pembayaran_pakaian_jadi_model
+            ->get_by_id($id_pembayaran);
+
+    if(!$pembayaran_lama){
+        show_404();
+    }
+
+    $this->pembayaran_pakaian_jadi_model->update(
+        $id_pembayaran,
+        [
+            'status_pembayaran' => $status_pembayaran
+        ]
+    );
+    if(
+        $status_pembayaran == 'berhasil'
+        &&
+        $pembayaran_lama->status_pembayaran != 'berhasil'
+    ){
+
+        $this->pembayaran_pakaian_jadi_model->update_pesanan(
+            $pembayaran_lama->id_pesanan,
             [
-                'status_pembayaran' => $status_pembayaran
+                'status_pesanan' => 'diproses'
             ]
         );
 
-        if(
-            $status_pembayaran == 'berhasil'
-            &&
-            $pembayaran_lama->status_pembayaran != 'berhasil'
-        ){
+        $this->pembayaran_pakaian_jadi_model->insert_notifikasi([
+            'id_customer'       => $pembayaran_lama->id_customer,
+            'id_pesanan'        => $pembayaran_lama->id_pesanan,
+            'id_pembayaran'     => $id_pembayaran,
+            'id_request'        => NULL,
+            'target_role'       => 'customer',
 
-            $this->Pembayaran_pakaian_jadi_model->update_pesanan(
-                $pembayaran_lama->id_pesanan,
-                [
-                    'status_pesanan' => 'diproses'
-                ]
-            );
+            'jenis_notifikasi'  => 'pembayaran_berhasil',
 
-            $this->Pembayaran_pakaian_jadi_model->insert_notifikasi([
-                'id_customer'       => $pembayaran_lama->id_customer,
-                'id_pesanan'        => $pembayaran_lama->id_pesanan,
-                'id_pembayaran'     => $id_pembayaran,
-                'id_request'        => NULL,
-                'target_role'       => 'customer',
-                'jenis_pembayaran'  => 'pembayaran berhasil',
-                'judul_notifikasi'  => 'Konfirmasi Pembayaran Telah Berhasil',
-                'pesan_notifikasi'  =>
-                    'Pembayaran untuk pesanan ' .
-                    $pembayaran_lama->kode_pesanan .
-                    ' telah berhasil diverifikasi oleh kasir. Kwitansi pembayaran sudah tersedia dan dapat dicetak.',
-                'status_baca'       => 'belum_dibaca'
-            ]);
-        }
+            'judul_notifikasi'  => 'Konfirmasi Pembayaran Telah Berhasil',
 
-        $this->session->set_flashdata(
-            'success',
-            'Status pembayaran berhasil diperbarui.'
+            'pesan_notifikasi'  =>
+                'Pembayaran untuk pesanan ' .
+                $pembayaran_lama->kode_pesanan .
+                ' telah berhasil diverifikasi oleh kasir. Kwitansi pembayaran sudah tersedia dan dapat dicetak.',
+
+            'status_baca'       => 'belum_dibaca'
+        ]);
+    }
+
+    if(
+        $status_pembayaran == 'ditolak'
+        &&
+        $pembayaran_lama->status_pembayaran != 'ditolak'
+    ){
+
+        $this->pembayaran_pakaian_jadi_model->update_pesanan(
+            $pembayaran_lama->id_pesanan,
+            [
+                'status_pesanan' => 'pending'
+            ]
         );
 
-        redirect('kasir/pembayaran-pakaian-jadi');
+        $this->pembayaran_pakaian_jadi_model->insert_notifikasi([
+            'id_customer'       => $pembayaran_lama->id_customer,
+            'id_pesanan'        => $pembayaran_lama->id_pesanan,
+            'id_pembayaran'     => $id_pembayaran,
+            'id_request'        => NULL,
+            'target_role'       => 'customer',
+            'jenis_notifikasi'  => 'pembayaran_ditolak',
+            'judul_notifikasi'  => 'Pembayaran Ditolak',
+            'pesan_notifikasi'  =>
+                'Bukti pembayaran untuk pesanan ' .
+                $pembayaran_lama->kode_pesanan .
+                ' tidak dapat diverifikasi. Silakan upload ulang bukti pembayaran.',
+            'status_baca'       => 'belum_dibaca'
+        ]);
+    }
+    $this->session->set_flashdata(
+        'success',
+        'Status pembayaran berhasil diperbarui.'
+    );
+    redirect('kasir/pembayaran-pakaian-jadi');
+    }
+
+    public function cetak_kwitansi($id_pembayaran)
+    {
+        $data['kwitansi'] =
+            $this->pembayaran_pakaian_jadi_model->get_kwitansi($id_pembayaran);
+
+        if(!$data['kwitansi']){
+            show_404();
+        }
+
+        $data['nama_kasir'] =
+            $this->session->userdata('nama_user') ?? 'Kasir Lavéra';
+
+        $this->load->view('kasir/pembayaran/kwitansi_pakaian_jadi', $data);
     }
 }

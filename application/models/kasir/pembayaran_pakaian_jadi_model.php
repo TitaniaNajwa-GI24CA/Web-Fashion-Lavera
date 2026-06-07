@@ -89,4 +89,36 @@ class pembayaran_pakaian_jadi_model extends CI_Model {
     {
         return $this->db->insert('tbl_notifikasi', $data);
     }
+
+    public function get_kwitansi($id_pembayaran)
+    {
+        return $this->db
+            ->select('
+                tbl_pembayaran.*,
+                tbl_pesanan.kode_pesanan,
+                tbl_pesanan.tanggal_pesanan,
+                tbl_pesanan.total_bayar,
+
+                tbl_detail_pesanan.jumlah,
+                tbl_detail_pesanan.harga,
+                tbl_detail_pesanan.subtotal,
+
+                tbl_pakaian_jadi.nama_pakaian,
+                tbl_pakaian_jadi.ukuran,
+
+                tbl_users.nama_user,
+                tbl_users.no_telepon,
+                tbl_customer.alamat
+            ')
+            ->from('tbl_pembayaran')
+            ->join('tbl_pesanan', 'tbl_pesanan.id_pesanan = tbl_pembayaran.id_pesanan', 'left')
+            ->join('tbl_detail_pesanan', 'tbl_detail_pesanan.id_pesanan = tbl_pesanan.id_pesanan', 'left')
+            ->join('tbl_pakaian_jadi', 'tbl_pakaian_jadi.id_pakaian_jadi = tbl_detail_pesanan.id_pakaian_jadi', 'left')
+            ->join('tbl_customer', 'tbl_customer.id_customer = tbl_pesanan.id_customer', 'left')
+            ->join('tbl_users', 'tbl_users.id_user = tbl_customer.id_user', 'left')
+            ->where('tbl_pembayaran.id_pembayaran', $id_pembayaran)
+            ->where('tbl_pesanan.tipe_pesanan', 'pakaian_jadi')
+            ->get()
+            ->row();
+    }
 }

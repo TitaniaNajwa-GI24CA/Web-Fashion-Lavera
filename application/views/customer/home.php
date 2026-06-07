@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="history-header-actions">
-                            <button href="<?= base_url('riwayat-pesanan'); ?>" class="history-expand-link">
+                            <button type="button" onclick="window.location.href='<?= base_url('riwayat-pesanan') ?>'" class="history-expand-link">
                                 <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
                             </button>
 

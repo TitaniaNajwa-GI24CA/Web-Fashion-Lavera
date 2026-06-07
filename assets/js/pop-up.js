@@ -676,3 +676,79 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 });
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const dpModal = document.getElementById("dpStatusModal");
+    const closeDpModal = document.getElementById("closeDpStatusModal");
+
+    document.querySelectorAll(".open-dp-status-modal").forEach(function(btn){
+        btn.addEventListener("click", function(e){
+            e.preventDefault();
+
+            document.getElementById("edit_id_dp").value = this.dataset.id;
+            document.getElementById("edit_kode_dp").value = this.dataset.kode;
+            document.getElementById("edit_status_dp").value = this.dataset.status;
+            document.getElementById("edit_metode_dp").value = this.dataset.metode || "-";
+            document.getElementById("edit_jumlah_dp").value =
+                "Rp " + parseInt(this.dataset.jumlah || 0).toLocaleString("id-ID");
+
+            if(dpModal){
+                dpModal.classList.add("active");
+            }
+        });
+    });
+
+    if(closeDpModal && dpModal){
+        closeDpModal.addEventListener("click", function(){
+            dpModal.classList.remove("active");
+        });
+    }
+
+    if(dpModal){
+        dpModal.addEventListener("click", function(e){
+            if(e.target === dpModal){
+                dpModal.classList.remove("active");
+            }
+        });
+    }
+
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const pelunasanModal = document.getElementById("pelunasanStatusModal");
+    const closePelunasanModal = document.getElementById("closePelunasanStatusModal");
+
+    document.querySelectorAll(".open-pelunasan-status-modal").forEach(function(btn){
+        btn.addEventListener("click", function(e){
+            e.preventDefault();
+
+            document.getElementById("edit_id_pelunasan").value = this.dataset.id;
+            document.getElementById("edit_kode_pelunasan").value = this.dataset.kode;
+            document.getElementById("edit_status_pelunasan").value = this.dataset.status;
+            document.getElementById("edit_metode_pelunasan").value = this.dataset.metode || "-";
+            document.getElementById("edit_jumlah_pelunasan").value =
+                "Rp " + parseInt(this.dataset.jumlah || 0).toLocaleString("id-ID");
+
+            if(pelunasanModal){
+                pelunasanModal.classList.add("active");
+            }
+        });
+    });
+
+    if(closePelunasanModal && pelunasanModal){
+        closePelunasanModal.addEventListener("click", function(){
+            pelunasanModal.classList.remove("active");
+        });
+    }
+
+    if(pelunasanModal){
+        pelunasanModal.addEventListener("click", function(e){
+            if(e.target === pelunasanModal){
+                pelunasanModal.classList.remove("active");
+            }
+        });
+    }
+
+});

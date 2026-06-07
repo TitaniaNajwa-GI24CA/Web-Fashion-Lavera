@@ -79,7 +79,7 @@ class Request_custom extends CI_Controller {
                     'id_request'         => $id_request,
                     'kode_pembayaran'    => 'BYR-DP-' . date('YmdHis'),
                     'jenis_pembayaran'   => 'uang_muka_custom',
-                    'metode_pembayaran'  => 'transfer',
+                    'metode_pembayaran'  => NULL,
                     'jumlah_bayar'       => $data['uang_muka'],
                     'bukti_pembayaran'   => NULL,
                     'status_pembayaran'  => 'belum_bayar'

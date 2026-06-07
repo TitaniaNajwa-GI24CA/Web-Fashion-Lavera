@@ -213,6 +213,130 @@ class pesanan extends CI_Controller {
         redirect('pesanan/detail/'.$id_pesanan);
     }
 
+    public function simpan_pembayaran_custom()
+    {
+        if(
+        $this->session->userdata('login') != TRUE ||
+        $this->session->userdata('role') != 'customer'
+        ){
+        redirect('login_customer');
+        }
+
+        $id_pesanan       = $this->input->post('id_pesanan', true);
+        $id_pembayaran    = $this->input->post('id_pembayaran', true);
+        $jenis_pembayaran = $this->input->post('jenis_pembayaran', true);
+        $metode           = $this->input->post('metode_pembayaran', true);
+
+        $id_user = $this->session->userdata('id_user');
+
+        $pesanan =
+            $this->pesanan_model
+                ->get_detail_custom($id_pesanan, $id_user);
+
+        if(!$pesanan){
+            show_404();
+        }
+
+        $data_update = [
+            'metode_pembayaran' => $metode,
+            'tanggal_pembayaran' => date('Y-m-d H:i:s')
+        ];
+
+        if($metode == 'transfer'){
+
+            if(empty($_FILES['bukti_pembayaran']['name'])){
+
+                $this->session->set_flashdata(
+                    'error',
+                    'Bukti pembayaran wajib diupload.'
+                );
+
+                redirect('pesanan/detail/'.$id_pesanan);
+            }
+
+            $upload_path = FCPATH . 'assets/img/pembayaran/';
+
+            if(!is_dir($upload_path)){
+                mkdir($upload_path, 0777, true);
+            }
+
+            $config['upload_path']   = $upload_path;
+            $config['allowed_types'] = 'jpg|jpeg|png|webp';
+            $config['max_size']      = 2048;
+            $config['encrypt_name']  = TRUE;
+
+            $this->load->library('upload');
+            $this->upload->initialize($config);
+
+            if(!$this->upload->do_upload('bukti_pembayaran')){
+
+                $this->session->set_flashdata(
+                    'error',
+                    $this->upload->display_errors()
+                );
+
+                redirect('pesanan/detail/'.$id_pesanan);
+            }
+
+            $upload = $this->upload->data();
+
+            $data_update['bukti_pembayaran']
+                = $upload['file_name'];
+
+            $data_update['status_pembayaran']
+                = 'menunggu_verifikasi';
+        }
+
+        else{
+
+            $data_update['status_pembayaran']
+                = 'menunggu_pembayaran_cash';
+        }
+
+        $this->db
+            ->where('id_pembayaran', $id_pembayaran)
+            ->update('tbl_pembayaran', $data_update);
+
+        $this->pesanan_model->insert_notifikasi([
+
+            'id_customer'      => $pesanan->id_customer,
+            'id_pesanan'       => $id_pesanan,
+            'id_pembayaran'    => $id_pembayaran,
+            'id_request'       => $pesanan->id_request,
+
+            'target_role'      => 'kasir',
+
+            'jenis_notifikasi' => $jenis_pembayaran,
+
+            'judul_notifikasi' =>
+                $jenis_pembayaran == 'uang_muka_custom'
+                ? 'Pembayaran Uang Muka Baru'
+                : 'Pembayaran Pelunasan Baru',
+
+            'pesan_notifikasi' =>
+
+                $pesanan->nama_user .
+
+                (
+                    $jenis_pembayaran == 'uang_muka_custom'
+                    ? ' telah melakukan pembayaran uang muka untuk pesanan '
+                    : ' telah melakukan pembayaran pelunasan untuk pesanan '
+                )
+
+                . $pesanan->kode_pesanan,
+
+            'status_baca' => 'belum_dibaca'
+        ]);
+
+        $this->session->set_flashdata(
+            'payment_success',
+            'Pembayaran berhasil dikirim dan menunggu verifikasi kasir.'
+        );
+
+        redirect('pesanan/detail/'.$id_pesanan);
+    }
+
+
     public function download_invoice($id_pesanan)
     {
         $data['pesanan'] =

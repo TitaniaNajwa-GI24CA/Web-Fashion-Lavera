@@ -110,8 +110,9 @@
                                 </a>
 
                                 <?php if($p->status_pembayaran == 'berhasil'): ?>
-                                    <a href="<?= base_url('kasir/cetak-kwitansi/'.$p->id_pembayaran); ?>"
-                                       class="print-btn">
+                                    <a href="<?= base_url('kasir/cetak-kwitansi-pakaian-jadi/'.$p->id_pembayaran); ?>"
+                                    target="_blank"
+                                    class="print-btn">
                                         <i class="fa-solid fa-print"></i>
                                     </a>
                                 <?php endif; ?>

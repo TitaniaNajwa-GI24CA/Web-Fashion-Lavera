@@ -31,35 +31,7 @@
                     <i class="fa-solid fa-wallet"></i>
                     Pelunasan Custom
                 </a>
-
-                <a href="<?= base_url('kasir/bukti-pembayaran'); ?>">
-                    <i class="fa-solid fa-file-invoice-dollar"></i>
-                    Bukti Pembayaran
-                </a>
             </div>
-
-            <a href="javascript:void(0)" class="has-submenu">
-                <i class="fa-solid fa-chart-column"></i>
-                Laporan
-            </a>
-
-            <div class="submenu">
-                <a href="<?= base_url('kasir/laporan-pembayaran-pakaian-jadi'); ?>">
-                    <i class="fa-solid fa-file-lines"></i>
-                    Pakaian Jadi
-                </a>
-
-                <a href="<?= base_url('kasir/laporan-pembayaran-custom'); ?>">
-                    <i class="fa-solid fa-file-invoice"></i>
-                    Pakaian Custom
-                </a>
-            </div>
-
-            <a href="<?= base_url('kasir/notifikasi'); ?>">
-                <i class="fa-solid fa-bell"></i>
-                Notifikasi
-            </a>
-
         </div>
     </div>
 

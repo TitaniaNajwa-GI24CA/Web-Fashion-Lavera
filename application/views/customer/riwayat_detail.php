@@ -85,40 +85,38 @@
                 Kembali
             </a>
 
-            <?php
-                $status_pembayaran = !empty($pesanan->status_pembayaran)
-                    ? strtolower(trim($pesanan->status_pembayaran))
-                    : 'belum_bayar';
-
-                $metode_pembayaran = !empty($pesanan->metode_pembayaran)
-                    ? strtolower(trim($pesanan->metode_pembayaran))
-                    : '';
+           <?php
+            $status_bayar = strtolower(trim($pesanan->status_pembayaran ?? 'belum_bayar'));
+            $metode_bayar = strtolower(trim($pesanan->metode_pembayaran ?? ''));
             ?>
 
-            <?php if($metode_pembayaran == 'transfer' && $status_pembayaran == 'belum_bayar'): ?>
+            <?php if($status_bayar == 'belum_bayar' || $status_bayar == ''): ?>
+
                 <a href="#" class="receipt-confirm-btn" id="openPaymentModal">
                     <i class="fa-solid fa-upload"></i>
                     Konfirmasi Pembayaran
                 </a>
 
-            <?php elseif($metode_pembayaran == 'transfer' && $status_pembayaran == 'menunggu_verifikasi'): ?>
+            <?php elseif($status_bayar == 'menunggu_verifikasi'): ?>
+
                 <button type="button" class="receipt-wait-btn" disabled>
                     <i class="fa-solid fa-clock"></i>
                     Menunggu Verifikasi
                 </button>
 
-            <?php elseif($status_pembayaran == 'berhasil' || $status_pembayaran == 'lunas'): ?>
-                <a href="<?= base_url('pesanan/download_invoice/'.$pesanan->id_pesanan); ?>"
-                class="receipt-download-btn">
-                    <i class="fa-solid fa-download"></i>
-                    Download Invoice
+            <?php elseif($status_bayar == 'ditolak'): ?>
+                <a href="#" class="receipt-confirm-btn" id="openPaymentModal">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    Upload Ulang Bukti Pembayaran
                 </a>
 
-            <?php elseif($metode_pembayaran == 'cash'): ?>
-                <button type="button" class="receipt-wait-btn" disabled>
-                    <i class="fa-solid fa-store"></i>
-                    Pembayaran Cash di Store
-                </button>
+            <?php elseif($status_bayar == 'berhasil'): ?>
+
+                <a href="<?= base_url('pesanan/download_invoice/'.$pesanan->id_pesanan); ?>"
+                class="receipt-confir-btn">
+                    <i class="fa-solid fa-download"></i>
+                    Download Kwitansi
+                </a>
 
             <?php endif; ?>
         </div>
