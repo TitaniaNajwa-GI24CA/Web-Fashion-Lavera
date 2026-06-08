@@ -130,12 +130,12 @@
                     </button>
 
                 <?php elseif($status_dp == 'berhasil' && $status_pelunasan == 'berhasil'): ?>
-                    <a href="<?= base_url('pesanan/download_invoice/'.$pesanan->id_pesanan); ?>"
-                    class="receipt-download-btn">
-                        <i class="fa-solid fa-download"></i>
-                        Download Kwitansi
+                    <a href="<?= base_url('pesanan/nota-custom/'.$pesanan->id_pesanan); ?>"
+                        target="_blank"
+                        class="receipt-download-btn">
+                            <i class="fa-solid fa-download"></i>
+                            Download Nota Custom
                     </a>
-
             <?php endif; ?>
         </div>
 
@@ -186,7 +186,7 @@
 
             <div class="order-input-group">
                 <label>Metode Pembayaran</label>
-                    <select name="metode_pembayaran" id="metodePembayaran" required>
+                    <select name="metode_pembayaran" id="metodeDpPayment" required>
                         <option value="">Pilih Metode Pembayaran</option>
                         <option value="transfer">Transfer</option>
                         <option value="cash">Cash</option>
@@ -268,7 +268,7 @@
 
             <div class="order-input-group">
                 <label>Metode Pembayaran</label>
-                    <select name="metode_pembayaran" id="metodePembayaran" required>
+                    <select name="metode_pembayaran" id="metodePelunasanPayment" required>
                         <option value="">Pilih Metode Pembayaran</option>
                         <option value="transfer">Transfer</option>
                         <option value="cash">Cash</option>

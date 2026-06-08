@@ -352,6 +352,46 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     });
 
+    /* CART DROPDOWN FIX */
+const cartToggle = document.querySelector("#CartToggle");
+const cartDropdown = document.querySelector("#CartDropdown");
+const closeCartBtn = document.querySelector("#closeCartDropdown");
+
+if(cartToggle && cartDropdown){
+
+    cartToggle.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        cartDropdown.classList.toggle("active");
+
+        const historyDropdown = document.querySelector("#historyDropdown");
+        const notificationDropdown = document.querySelector("#notificationDropdown");
+
+        if(historyDropdown) historyDropdown.classList.remove("active");
+        if(notificationDropdown) notificationDropdown.classList.remove("active");
+    });
+
+    cartDropdown.addEventListener("click", function(e){
+        e.stopPropagation();
+    });
+}
+
+if(closeCartBtn && cartDropdown){
+    closeCartBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        cartDropdown.classList.remove("active");
+    });
+}
+
+document.addEventListener("click", function(){
+    if(cartDropdown){
+        cartDropdown.classList.remove("active");
+    }
+});
+
     /* RIWAYAT FILTER */
     const historyButtons = document.querySelectorAll(".history-filter-btn");
     const historyCards = document.querySelectorAll(".history-order-card");
@@ -751,4 +791,74 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     }
 
+});
+
+
+/* NOTIFICATION DROPDOWN */
+const notificationToggle = document.getElementById("notificationToggle");
+const notificationDropdown = document.getElementById("notificationDropdown");
+const closeNotificationDropdown = document.getElementById("closeNotificationDropdown");
+
+/* FUNCTION CLOSE ALL DROPDOWN */
+function closeAllDropdowns(){
+    if(cartDropdown) cartDropdown.classList.remove("active");
+    if(dropdown) dropdown.classList.remove("active"); // historyDropdown dari kode kamu
+    if(notificationDropdown) notificationDropdown.classList.remove("active");
+}
+
+/* CART TOGGLE */
+if(cartToggle && cartDropdown){
+    cartToggle.addEventListener("click", function(e){
+        e.stopPropagation();
+
+        if(dropdown) dropdown.classList.remove("active");
+        if(notificationDropdown) notificationDropdown.classList.remove("active");
+
+        cartDropdown.classList.toggle("active");
+    });
+}
+
+if(closeCartDropdown && cartDropdown){
+    closeCartDropdown.addEventListener("click", function(e){
+        e.stopPropagation();
+        cartDropdown.classList.remove("active");
+    });
+}
+
+/* NOTIFICATION TOGGLE */
+if(notificationToggle && notificationDropdown){
+    notificationToggle.addEventListener("click", function(e){
+        e.stopPropagation();
+
+        if(cartDropdown) cartDropdown.classList.remove("active");
+        if(dropdown) dropdown.classList.remove("active");
+
+        notificationDropdown.classList.toggle("active");
+    });
+}
+
+if(closeNotificationDropdown && notificationDropdown){
+    closeNotificationDropdown.addEventListener("click", function(e){
+        e.stopPropagation();
+        notificationDropdown.classList.remove("active");
+    });
+}
+
+/* CLOSE SAAT KLIK DI LUAR */
+document.addEventListener("click", function(e){
+    if(
+        cartDropdown && cartToggle &&
+        !cartDropdown.contains(e.target) &&
+        !cartToggle.contains(e.target)
+    ){
+        cartDropdown.classList.remove("active");
+    }
+
+    if(
+        notificationDropdown && notificationToggle &&
+        !notificationDropdown.contains(e.target) &&
+        !notificationToggle.contains(e.target)
+    ){
+        notificationDropdown.classList.remove("active");
+    }
 });

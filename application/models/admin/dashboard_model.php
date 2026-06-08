@@ -16,7 +16,8 @@ class dashboard_model extends CI_Model {
     public function total_pendapatan()
     {
         $this->db->select_sum('jumlah_bayar');
-        $this->db->where('jenis_pembayaran', 'full_payment');
+        $this->db->where('jenis_pembayaran', 'pembayaran_pakaian_jadi');
+        $this->db->or_where('jenis_pembayaran', 'pelunasan_custom');
         $this->db->where('status_pembayaran', 'berhasil');
         $result = $this->db->get('tbl_pembayaran')->row();
 
@@ -39,7 +40,8 @@ class dashboard_model extends CI_Model {
     {
         $this->db->select("DATE(tanggal_pembayaran) as tanggal, SUM(jumlah_bayar) as total");
         $this->db->from('tbl_pembayaran');
-        $this->db->where('jenis_pembayaran', 'full_payment');
+        $this->db->where('jenis_pembayaran', 'pembayaran_pakaian_jadi');
+        $this->db->or_where('jenis_pembayaran', 'pelunasan_custom');
         $this->db->where('status_pembayaran', 'berhasil');
         $this->db->group_by('DATE(tanggal_pembayaran)');
         $this->db->order_by('tanggal', 'ASC');

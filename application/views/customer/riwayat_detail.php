@@ -111,13 +111,12 @@
                 </a>
 
             <?php elseif($status_bayar == 'berhasil'): ?>
-
-                <a href="<?= base_url('pesanan/download_invoice/'.$pesanan->id_pesanan); ?>"
-                class="receipt-confir-btn">
-                    <i class="fa-solid fa-download"></i>
-                    Download Kwitansi
+                <a href="<?= base_url('pesanan/nota-pakaian-jadi/'.$pesanan->id_pesanan); ?>"
+                    target="_blank"
+                    class="receipt-download-btn">
+                        <i class="fa-solid fa-download"></i>
+                        Download Nota
                 </a>
-
             <?php endif; ?>
         </div>
 

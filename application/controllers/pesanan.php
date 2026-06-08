@@ -9,20 +9,50 @@ class pesanan extends CI_Controller {
         $this->load->model('pesanan_model');
     }
 
-    public function form($id_pakaian_jadi)
+    public function form($id_pakaian_jadi = null)
     {
-        if($this->session->userdata('login') != TRUE || $this->session->userdata('role') != 'customer'){
+        if(
+            $this->session->userdata('login') != TRUE ||
+            $this->session->userdata('role') != 'customer'
+        ){
             $this->session->set_flashdata('error', 'Silakan login terlebih dahulu.');
             redirect('login_customer');
         }
 
         $id_user = $this->session->userdata('id_user');
 
-        $data['produk'] = $this->pesanan_model->get_produk($id_pakaian_jadi);
-        $data['customer'] = $this->pesanan_model->get_customer_by_user($id_user);
+        $customer = $this->pesanan_model->get_customer_by_user($id_user);
 
-        if(!$data['produk']){
+        if(!$customer){
             show_404();
+        }
+
+        $data['customer'] = $customer;
+
+        if($id_pakaian_jadi != null){
+
+            $produk = $this->pesanan_model->get_produk($id_pakaian_jadi);
+
+            if(!$produk){
+                show_404();
+            }
+
+            $data['checkout_type'] = 'single';
+            $data['produk'] = $produk;
+            $data['cart_items'] = [];
+
+        }else{
+
+            $cart_items = $this->pesanan_model->get_cart_customer($customer->id_customer);
+
+            if(empty($cart_items)){
+                $this->session->set_flashdata('error', 'Keranjang masih kosong.');
+                redirect('cart');
+            }
+
+            $data['checkout_type'] = 'cart';
+            $data['produk'] = null;
+            $data['cart_items'] = $cart_items;
         }
 
         $this->load->view('customer/pesanan_form', $data);
@@ -30,38 +60,92 @@ class pesanan extends CI_Controller {
 
     public function simpan()
     {
-        if($this->session->userdata('login') != TRUE || $this->session->userdata('role') != 'customer'){
+        if(
+            $this->session->userdata('login') != TRUE ||
+            $this->session->userdata('role') != 'customer'
+        ){
             redirect('login_customer');
         }
 
-        $id_pakaian_jadi = $this->input->post('id_pakaian_jadi', true);
-        $produk = $this->pesanan_model->get_produk($id_pakaian_jadi);
+        $id_user = $this->session->userdata('id_user');
+        $customer = $this->pesanan_model->get_customer_by_user($id_user);
 
-        if(!$produk){
+        if(!$customer){
             show_404();
         }
 
-        $jumlah = (int) $this->input->post('jumlah', true);
+        $checkout_type = $this->input->post('checkout_type', true);
 
-        if($jumlah < 1){
-            $jumlah = 1;
+        $items = [];
+        $grand_total = 0;
+
+        if($checkout_type == 'single'){
+
+            $id_pakaian_jadi = $this->input->post('id_pakaian_jadi', true);
+            $jumlah = (int) $this->input->post('jumlah', true);
+
+            if($jumlah < 1){
+                $jumlah = 1;
+            }
+
+            $produk = $this->pesanan_model->get_produk($id_pakaian_jadi);
+
+            if(!$produk){
+                show_404();
+            }
+
+            if($jumlah > $produk->stok){
+                $this->session->set_flashdata('error', 'Jumlah pesanan melebihi stok tersedia.');
+                redirect('pesanan/form/'.$id_pakaian_jadi);
+            }
+
+            $harga = $produk->harga - ($produk->harga * $produk->diskon_produk / 100);
+            $subtotal = $harga * $jumlah;
+
+            $items[] = [
+                'id_pakaian_jadi' => $produk->id_pakaian_jadi,
+                'jumlah'          => $jumlah,
+                'harga'           => $harga,
+                'subtotal'        => $subtotal
+            ];
+
+            $grand_total += $subtotal;
+
+        }else{
+
+            $cart_items = $this->pesanan_model->get_cart_customer($customer->id_customer);
+
+            if(empty($cart_items)){
+                $this->session->set_flashdata('error', 'Keranjang masih kosong.');
+                redirect('cart');
+            }
+
+            foreach($cart_items as $c){
+
+                if($c->jumlah > $c->stok){
+                    $this->session->set_flashdata('error', 'Jumlah produk '.$c->nama_pakaian.' melebihi stok.');
+                    redirect('cart');
+                }
+
+                $harga = $c->harga - ($c->harga * $c->diskon_produk / 100);
+                $subtotal = $harga * $c->jumlah;
+
+                $items[] = [
+                    'id_pakaian_jadi' => $c->id_pakaian_jadi,
+                    'jumlah'          => $c->jumlah,
+                    'harga'           => $harga,
+                    'subtotal'        => $subtotal
+                ];
+
+                $grand_total += $subtotal;
+            }
         }
-
-        if($jumlah > $produk->stok){
-            $this->session->set_flashdata('error', 'Jumlah pesanan melebihi stok tersedia.');
-            redirect('pesanan/form/'.$id_pakaian_jadi);
-        }
-
-        $harga_normal = $produk->harga;
-        $diskon = $produk->diskon_produk;
-        $harga_setelah_diskon = $harga_normal - ($harga_normal * $diskon / 100);
-        $subtotal = $harga_setelah_diskon * $jumlah;
 
         $data_pesanan = [
-            'id_customer'        => $this->input->post('id_customer', true),
+            'id_customer'        => $customer->id_customer,
             'id_request'         => NULL,
             'kode_pesanan'       => 'PSN-' . date('YmdHis'),
-            'total_bayar'        => $subtotal,
+            'total_bayar'        => $grand_total,
             'tipe_pesanan'       => 'pakaian_jadi',
             'status_pesanan'     => 'pending',
             'metode_pengambilan' => $this->input->post('metode_pengambilan', true),
@@ -72,31 +156,37 @@ class pesanan extends CI_Controller {
 
         $id_pesanan = $this->pesanan_model->insert_pesanan($data_pesanan);
 
-        $data_detail = [
-            'id_pesanan'      => $id_pesanan,
-            'id_pakaian_jadi' => $id_pakaian_jadi,
-            'id_request'      => NULL,
-            'jumlah'          => $jumlah,
-            'harga'           => $harga_setelah_diskon,
-            'subtotal'        => $subtotal
-        ];
+        foreach($items as $item){
 
-        $this->pesanan_model->insert_detail_pesanan($data_detail);
+            $this->pesanan_model->insert_detail_pesanan([
+                'id_pesanan'      => $id_pesanan,
+                'id_pakaian_jadi' => $item['id_pakaian_jadi'],
+                'id_request'      => NULL,
+                'jumlah'          => $item['jumlah'],
+                'harga'           => $item['harga'],
+                'subtotal'        => $item['subtotal']
+            ]);
 
-        $data_pembayaran = [
+            $this->pesanan_model->kurangi_stok(
+                $item['id_pakaian_jadi'],
+                $item['jumlah']
+            );
+        }
+
+        $this->pesanan_model->insert_pembayaran([
             'id_pesanan'         => $id_pesanan,
             'id_request'         => NULL,
             'kode_pembayaran'    => 'PAY-' . date('YmdHis'),
-            'jenis_pembayaran'   => 'full_payment',
+            'jenis_pembayaran'   => 'pembayaran_pakaian_jadi',
             'metode_pembayaran'  => $this->input->post('metode_pembayaran', true),
-            'jumlah_bayar'       => $subtotal,
+            'jumlah_bayar'       => $grand_total,
             'bukti_pembayaran'   => NULL,
-            'status_pembayaran'  => $this->input->post('metode_pembayaran', true) == 'cash'
-                ? 'belum_bayar'
-                : 'belum_bayar'
-        ];
+            'status_pembayaran'  => 'belum_bayar'
+        ]);
 
-        $this->pesanan_model->insert_pembayaran($data_pembayaran);
+        if($checkout_type == 'cart'){
+            $this->pesanan_model->clear_cart($customer->id_customer);
+        }
 
         $this->session->set_flashdata('success', 'Pesanan berhasil dibuat.');
         redirect('riwayat-pesanan');
@@ -347,5 +437,53 @@ class pesanan extends CI_Controller {
             'customer/invoice_pdf',
             $data
         );
+    }
+
+    public function nota_pakaian_jadi($id_pesanan)
+    {
+        if($this->session->userdata('login') != TRUE){
+            redirect('login_customer');
+        }
+
+        $role = $this->session->userdata('role');
+        $id_user = $this->session->userdata('id_user');
+
+        if($role == 'customer'){
+            $data['nota'] =
+                $this->pesanan_model->get_nota_pakaian_jadi($id_pesanan, $id_user);
+        }else{
+            $data['nota'] =
+                $this->pesanan_model->get_nota_pakaian_jadi_admin($id_pesanan);
+        }
+
+        if(!$data['nota']){
+            show_404();
+        }
+
+        $this->load->view('customer/nota_pakaian_jadi', $data);
+    }
+
+    public function nota_custom($id_pesanan)
+    {
+        if($this->session->userdata('login') != TRUE){
+            redirect('login_customer');
+        }
+
+        $role = $this->session->userdata('role');
+        $id_user = $this->session->userdata('id_user');
+
+        if($role == 'customer'){
+            $data['nota'] =
+                $this->pesanan_model->get_nota_custom($id_pesanan, $id_user);
+        }else{
+            $data['nota'] =
+                $this->pesanan_model->get_nota_custom_admin($id_pesanan);
+        }
+
+        if(!$data['nota']){
+            show_404();
+        }
+
+        $this->load->view('customer/nota_custom', $data);
     }
 }

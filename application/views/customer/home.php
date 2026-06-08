@@ -17,7 +17,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#howtoorder">How To Order</a></li>
-            <li><a href="#favorite">Favorite</a></li>
+            <li><a href="<?= base_url('riwayat-pesanan'); ?>">Order</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         
@@ -26,17 +26,56 @@
             <i class="fa-solid fa-bars"></i>
         </div>
         <div class="nav-icons">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <form class="search-form" action="<?= base_url('search'); ?>" method="get">
-                    <input type="text" name="keyword" placeholder="Search product...">
-                </form>
-            </div>
-            
-            <div class="cart-box">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span class="cart-count">0</span>
-             <!--    <span class="cart-count"><?= $jumlah_cart; ?></span> -->
+        
+            <div class="history-dropdown-box">
+                <div class="cart-box" id="CartToggle">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-count"><?= $jumlah_cart ?? 0; ?></span>
+                </div>
+
+                <div class="history-dropdown" id="CartDropdown">
+
+                    <div class="history-dropdown-header">
+                        <div>
+                            <h4>Keranjang Belanja</h4>
+                            <small>Produk yang kamu pilih</small>
+                        </div>
+
+                        <div class="history-header-actions">
+                            <a href="<?= base_url('cart'); ?>" class="history-expand-link">
+                                <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                            </a>
+
+                            <button type="button" id="closeCartDropdown" class="history-close-btn">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="history-mini-content active">
+                        <?php if(!empty($cart_items)): ?>
+                            <?php foreach(array_slice($cart_items, 0, 3) as $c): ?>
+                                <a href="<?= base_url('cart'); ?>" class="history-mini-item">
+                                    <img src="<?= base_url('assets/img/produk/'.$c->foto_4); ?>"
+                                        style="width:48px;height:60px;object-fit:cover;border-radius:12px;margin-right:10px;">
+                                    <div>
+                                        <h5><?= $c->nama_pakaian; ?></h5>
+                                        <span><?= $c->jumlah; ?> pcs</span>
+                                    </div>
+
+                                    <small>
+                                        Rp <?= number_format(($c->harga - ($c->harga * $c->diskon_produk / 100)) * $c->jumlah,0,',','.'); ?>
+                                    </small>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="history-empty">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                <p>Keranjang masih kosong.</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
 
             <div class="history-dropdown-box">
@@ -131,13 +170,13 @@
                             Lihat Semua
                         </a>
 
-                        <button type="button" id="closeHistoryDropdown" class="history-close-btn">
+                        <button type="button" id="closeNotificationDropdown" class="history-close-btn">
                                 <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div>
                     <?php if(!empty($notifikasi)): ?>
                         <?php foreach($notifikasi as $n): ?>
-                            <a href="#"
+                            <a href="<?= base_url('notifikasi/detail/'.$n->id_notifikasi); ?>"
                             class="notification-item">
                                 <div class="notif-dot <?= $n->status_baca == 'belum_dibaca' ? 'active' : ''; ?>"></div>
                                 <div>

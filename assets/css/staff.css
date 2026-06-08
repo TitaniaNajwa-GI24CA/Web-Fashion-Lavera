@@ -1757,3 +1757,59 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.btn-download-report{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 18px;
+    border-radius:12px;
+    background:#f7dbe5;
+    color:#8c4b63;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-download-report:hover{
+    background:#efc5d4;
+    transform:translateY(-2px);
+}
+
+.laporan-action{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.btn-pdf-report,
+.btn-excel-report{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 18px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-pdf-report{
+    background:#ffe5e8;
+    color:#d94f70;
+}
+
+.btn-pdf-report:hover{
+    background:#ffd2d9;
+    transform:translateY(-2px);
+}
+
+.btn-excel-report{
+    background:#e5f7eb;
+    color:#2f8f57;
+}
+
+.btn-excel-report:hover{
+    background:#d1f0dc;
+    transform:translateY(-2px);
+}

@@ -157,6 +157,13 @@
             <i class="fa-solid fa-arrow-left"></i>
             Kembali
         </a>
+
+        <a href="<?= base_url('pesanan/nota-custom/'.$pesanan->id_pesanan); ?>"
+            target="_blank"
+            class="print-detail-btn">
+                <i class="fa-solid fa-print"></i>
+                Cetak Nota
+        </a>
     </div>
 
 </div>

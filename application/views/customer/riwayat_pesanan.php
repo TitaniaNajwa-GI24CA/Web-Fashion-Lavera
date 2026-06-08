@@ -11,7 +11,7 @@
     <div class="history-filter">
         <button class="history-filter-btn active" data-filter="all">Semua</button>
         <button class="history-filter-btn" data-filter="pakaian_jadi">Pakaian Jadi</button>
-        <button class="history-filter-btn" data-filter="custom">Request Custom</button>
+        <button class="history-filter-btn" data-filter="custom">Custom</button>
     </div>
 
     <div class="history-list-wrapper">

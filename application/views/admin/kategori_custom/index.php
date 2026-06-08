@@ -1,5 +1,5 @@
 <div class="admin-page-header">
-    <a href="#" class="btn-tambah-produk" id="openCustomModal">
+    <a href="<?= base_url('admin/kategori_custom/tambah'); ?>" class="btn-tambah-produk" id="openCustomModal">
         <i class="fa-solid fa-plus"></i>
         Tambah Kategori
     </a>
@@ -59,7 +59,7 @@
 
                         <td>
                             <div class="produk-action">
-                                <a href="#"
+                                <a href="<?= base_url('admin/kategori_custom/ubah/' . $c->id_custom); ?>"
                                     class="edit-btn open-edit-modal"
                                     data-id="<?= $c->id_custom; ?>"
                                     data-kategori="<?= htmlspecialchars($c->kategori_custom, ENT_QUOTES); ?>"
@@ -70,7 +70,7 @@
                                         <i class="fa-solid fa-pen"></i>
                                 </a>
 
-                                <a href="#"
+                                <a href="<?= base_url('admin/kategori_custom/hapus/' . $c->id_custom); ?>"
                                    class="delete-btn open-delete-modal"
                                    data-url="<?= base_url('admin/kategori_custom/hapus/' . $c->id_custom); ?>">
                                     <i class="fa-solid fa-trash"></i>

@@ -146,9 +146,11 @@
             Kembali
         </a>
 
-        <a href="#" class="print-detail-btn">
-            <i class="fa-solid fa-print"></i>
-            Cetak Nota
+        <a href="<?= base_url('pesanan/nota-pakaian-jadi/'.$pesanan->id_pesanan); ?>"
+            target="_blank"
+            class="print-detail-btn">
+                <i class="fa-solid fa-print"></i>
+                Cetak Nota
         </a>
     </div>
 

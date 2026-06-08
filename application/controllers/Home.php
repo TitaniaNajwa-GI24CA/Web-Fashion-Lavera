@@ -21,6 +21,18 @@ class Home extends CI_Controller {
             $p->ukuran_stok = $this->produk_pakaian_jadi_model
                 ->get_ukuran_stok_by_produk($p->nama_pakaian);
         }
+        $data['cart_items'] = [];
+        $data['jumlah_cart'] = 0;
+
+        if(!empty($data['customer'])){
+            $this->load->model('Cart_model');
+
+            $data['cart_items'] =
+                $this->Cart_model->get_cart($data['customer']->id_customer);
+
+            $data['jumlah_cart'] =
+                count($data['cart_items']);
+        }
         $data['produk'] = $produk;
         $data['custom_db'] = $this->kategori_custom_model->get_custom_admin_aktif();
         $data['riwayat_pakaian'] = [];

@@ -71,7 +71,7 @@ cards.forEach(card => {
                         baseUrl + 'pesanan/form/' + selectedProductId;
 
                     cartLink.href =
-                        baseUrl + 'keranjang/tambah/' + selectedProductId;
+                        baseUrl + 'cart/tambah/' + selectedProductId;
                 };
 
             }else{
